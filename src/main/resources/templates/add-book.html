@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::header"></header>
+
+<img class="position-relative img-fluid overflow-y-hidden" style="height: 100vh; width: 100vw;" src="/img/FormPageImg.jpg" alt="snimka">
+<div class="container position-absolute top-50 start-50 translate-middle">
+    <div class="row mt-5">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h2 class="text-white mt-3 text-center">Add book</h2>
+            <form>
+                <div class="form-floating mt-3">
+                    <input type="text" id="title" class="form-control"
+                           placeholder="Place title  here">
+                    <label for="title" class="form-label">Title</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input type="text" id="image_url" class="form-control"
+                           placeholder="Place image url  here">
+                    <label for="image_url" class="form-label">Image url</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <select class="form-select" name="author_name" id="author_name">
+                        <option value="">Select author</option>
+                        <option value="">Author 1</option>
+                        <option value="">Author 2</option>
+                        <option value="">Author 3</option>
+                        <option value="">Author 4</option>
+                        <option value="">Author 5</option>
+                    </select>
+                </div>
+                <div class="form-floating mt-3">
+                    <select class="form-select" name="category_name" id="category_name">
+                        <option value="">Select category</option>
+                        <option value="">Category 1</option>
+                        <option value="">Category 2</option>
+                        <option value="">Category 3</option>
+                        <option value="">Category 4</option>
+                        <option value="">Category 5</option>
+                    </select>
+                </div>
+                <div class="form-floating mt-3">
+                    <input type="text" id="short_description" class="form-control"
+                           placeholder="Place short description  here">
+                    <label for="short_description" class="form-label">Short description</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input type="text" id="long_description" class="form-control"
+                           placeholder="Place long description  here">
+                    <label for="long_description" class="form-label">Long description</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input type="number" id="price" class="form-control"
+                           placeholder="Place price  here">
+                    <label for="price" class="form-label">Price</label>
+                </div>
+                <div class="text-center">
+                    <button class="mt-3 btn btn-success mb-3 btn-center">Add book</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+<nav class=" bg-body-tertiary pt-3 pb-3">
+    <div class="row text-center">
+        <h3>
+            <a th:href="@{/index}" class="text-dark link-underline link-underline-opacity-0">Publish House</a>
+        </h3>
+    </div>
+</nav>
+</body>
+</html>

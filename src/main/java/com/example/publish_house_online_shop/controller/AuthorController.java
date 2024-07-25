@@ -10,4 +10,9 @@ public class AuthorController {
 
         return "author";
     }
+
+    @GetMapping("/add-author")
+    public String viewAddAuthor(){
+        return "add-author";
+    }
 }

@@ -8,7 +8,14 @@ public class BookController {
 
     @GetMapping("/book")
     public String viewBook(){
-
         return "book";
+    }
+    @GetMapping("/books")
+    public String viewAllBooks(){
+        return "books";
+    }
+    @GetMapping("/add-book")
+    public String viewAddBook(){
+        return "add-book";
     }
 }
