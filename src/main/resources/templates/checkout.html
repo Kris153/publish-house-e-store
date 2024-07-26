@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::header"></header>
+<div class="container mt-5 mb-5">
+    <div class="row text-center mb-5">
+        <h1>Checkout</h1>
+    </div>
+    <div class="row">
+        <form class="" th:action="@{/checkout/finish-order}" th:method="GET">
+            <div class="container">
+                <div class="row">
+                    <div class="col me-3">
+                        <h3 class="">Shipping info</h3>
+                        <div class="form-floating mt-3">
+                            <input type="text" id="name" class="form-control"
+                                   placeholder="Place name here">
+                            <label for="name" class="form-label">Name</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input type="email" id="email" class="form-control"
+                                   placeholder="Place email here">
+                            <label for="email" class="form-label">Email</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input type="text" id="phone_number" class="form-control"
+                                   placeholder="Place phone number here">
+                            <label for="phone_number" class="form-label">Phone number</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input type="text" id="shipping_address" class="form-control"
+                                   placeholder="Place phone shipping address here">
+                            <label for="shipping_address" class="form-label">Shipping address</label>
+                        </div>
+                    </div>
+                    <div class="col ms-3 border border-3 p-3 border-dark rounded-5">
+                        <h3>Your order</h3>
+                        <table class="table table-striped">
+                            <thead>
+                            <th>Book</th>
+                            <th>Subtotal</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><span>Конникът на Апокалипсиса/Сянката на Сатаната</span> x <span>2</span></td>
+                                <td><span>60</span>лв.</td>
+                            </tr>
+                            <tr>
+                                <td><span>Конникът на Апокалипсиса/Сянката на Сатаната</span> x <span>2</span></td>
+                                <td><span>60</span>лв.</td>
+                            </tr>
+                            <tr>
+                                <td><span>Конникът на Апокалипсиса/Сянката на Сатаната</span> x <span>2</span></td>
+                                <td><span>60</span>лв.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h3>Total: <span>180</span>лв.</h3>
+                        <button class="btn btn-info mt-3 rounded-5">Finish order</button>
+                    </div>
+                </div>
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::header"></header>
+<div class="container mt-5 mb-5">
+    <div class="row mt-5">
+        <div class="col-2"></div>
+        <div class="col bg-warning p-4 bg-opacity-25 rounded-5">
+            <div class="row">
+                <h2>Name: <span>Name</span></h2>
+            </div>
+            <div class="row">
+                <h3>Email: <span>exaple@email.com</span></h3>
+            </div>
+            <div class="row">
+                <h3>Shipping address: <span>3905 Hillside Street</span></h3>
+            </div>
+            <div class="row">
+                <h3>Phone number: <span>0855555555</span></h3>
+            </div>
+            <div class="row">
+                <h3>Date created: <span>26.07.2024</span></h3>
+            </div>
+            <div class="row">
+                <h3>Books:</h3>
+            </div>
+            <div class="row border border-white border-3 rounded-pill mb-3">
+                <div class="col">
+                    <h3 class="pt-3 pb-3 ps-4">Title</h3>
+                </div>
+                <div class="col pt-3 pb-3 pe-4 text-end">
+                    <h3>2 x <span>30.00</span>лв.</h3>
+                </div>
+            </div>
+            <div class="row border border-white border-3 rounded-pill mb-3">
+                <div class="col">
+                    <h3 class="pt-3 pb-3 ps-4">Title</h3>
+                </div>
+                <div class="col pt-3 pb-3 pe-4 text-end">
+                    <h3>2 x <span>30.00</span>лв.</h3>
+                </div>
+            </div>
+            <div class="row border border-white border-3 rounded-pill mb-3">
+                <div class="col">
+                    <h3 class="pt-3 pb-3 ps-4">Title</h3>
+                </div>
+                <div class="col pt-3 pb-3 pe-4 text-end">
+                    <h3>2 x <span>30.00</span>лв.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <h3>Total: <span>90</span>лв.</h3>
+            </div>
+            <div class="row">
+                <h3>Status: <span>processing</span></h3>
+            </div>
+            <div class="row mt-3">
+                <form action=""><button class="btn btn-success rounded-5">Change status to completed</button></form>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="row mt-5 mb-5"></div>
+    <div class="row mt-5 mb-5"></div>
+    <div class="row mt-5 mb-5"></div>
+    <div class="row mt-5 mb-5"></div>
+    <div class="row mt-5 mb-5"></div>
+
+</div>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
