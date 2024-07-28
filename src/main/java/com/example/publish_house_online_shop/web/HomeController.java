@@ -1,4 +1,4 @@
-package com.example.publish_house_online_shop.controller;
+package com.example.publish_house_online_shop.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -28,3 +28,6 @@ logging:
 server:
   port: 8080
 
+books:
+  api:
+    baseUrl: "${OFFERS_BASE_URL:http://localhost:8081}"
