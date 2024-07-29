@@ -10,50 +10,56 @@
         <div class="col-4"></div>
         <div class="col-4">
             <h2 class="text-white mt-3 text-center">Add book</h2>
-            <form>
+            <form th:method="POST" th:action="@{/add-book}" th:object="${bookData}">
                 <div class="form-floating mt-3">
                     <input type="text" id="title" class="form-control"
-                           placeholder="Place title  here">
+                           placeholder="Place title  here"
+                    th:field="*{title}" th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('title')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="title" class="form-label">Title</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="image_url" class="form-control"
-                           placeholder="Place image url  here">
+                           placeholder="Place image url  here"
+                           th:field="*{imageUrl}" th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('imageUrl')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="image_url" class="form-label">Image url</label>
                 </div>
                 <div class="form-floating mt-3">
-                    <select class="form-select" name="author_name" id="author_name">
+                    <select class="form-select" name="author_name" id="author_name"
+                            th:field="*{authorName}" th:errorclass="'is-invalid alert-danger'">
                         <option value="">Select author</option>
-                        <option value="">Author 1</option>
-                        <option value="">Author 2</option>
-                        <option value="">Author 3</option>
-                        <option value="">Author 4</option>
-                        <option value="">Author 5</option>
+                        <option th:each="author: ${authors}" th:value="${author.name}" th:text="${author.name}">Author name</option>
                     </select>
+                    <div th:each="error: ${#fields.errors('authorName')}" th:text="${error}" class="text-danger">Error messages</div>
                 </div>
                 <div class="form-floating mt-3">
-                    <select class="form-select" name="category_name" id="category_name">
+                    <select class="form-select" name="category_name" id="category_name"
+                            th:field="*{categoryName}" th:errorclass="'is-invalid alert-danger'">
                         <option value="">Select category</option>
-                        <option value="">Category 1</option>
-                        <option value="">Category 2</option>
-                        <option value="">Category 3</option>
-                        <option value="">Category 4</option>
-                        <option value="">Category 5</option>
+                        <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}">Category name</option>
                     </select>
+                    <div th:each="error: ${#fields.errors('categoryName')}" th:text="${error}" class="text-danger">Error messages</div>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="short_description" class="form-control"
-                           placeholder="Place short description  here">
+                           placeholder="Place short description  here"
+                           th:field="*{shortDescription}" th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('shortDescription')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="short_description" class="form-label">Short description</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="long_description" class="form-control"
-                           placeholder="Place long description  here">
+                           placeholder="Place long description  here"
+                           th:field="*{longDescription}" th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('longDescription')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="long_description" class="form-label">Long description</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="number" id="price" class="form-control"
-                           placeholder="Place price  here">
+                           placeholder="Place price  here"
+                           th:field="*{price}" th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('price')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="price" class="form-label">Price</label>
                 </div>
                 <div class="text-center">

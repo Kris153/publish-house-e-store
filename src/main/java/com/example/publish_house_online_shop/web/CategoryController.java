@@ -4,6 +4,7 @@ import com.example.publish_house_online_shop.model.dtos.AddCategoryDTO;
 import com.example.publish_house_online_shop.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +20,7 @@ public class CategoryController {
     }
 
     @ModelAttribute("categoryData")
-    public AddCategoryDTO addCategoryDTOToModel(){
+    private AddCategoryDTO addAddCategoryDTOToModel(){
         return new AddCategoryDTO();
     }
     @GetMapping("/add-category")
@@ -34,7 +35,7 @@ public class CategoryController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.categoryData", bindingResult);
             return "redirect:/add-category";
         }
-
+        redirectAttributes.addFlashAttribute("successfulAddCategory", true);
         this.categoryService.addCategory(categoryData);
         return "redirect:/index";
     }

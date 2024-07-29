@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "book.api")
+@ConfigurationProperties(prefix = "books.api")
 public class BookApiConfig {
     private String baseUrl;
 
