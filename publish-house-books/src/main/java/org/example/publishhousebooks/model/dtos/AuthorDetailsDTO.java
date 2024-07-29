@@ -1,30 +1,7 @@
-package org.example.publishhousebooks.model.entities;
+package org.example.publishhousebooks.model.dtos;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "authors")
-public class AuthorEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AuthorDetailsDTO {
     private Integer id;
-    @Column(nullable = false, unique = true)
-    private String name;
-    @Column(nullable = false, name = "image_url")
-    private String imageUrl;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String description;
-
-    public AuthorEntity() {
-    }
-
-    public AuthorEntity(Integer id, String name, String imageUrl, String description) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.description = description;
-    }
 
     public Integer getId() {
         return id;
@@ -32,6 +9,20 @@ public class AuthorEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    private String name;
+    private String imageUrl;
+    private String description;
+
+    public AuthorDetailsDTO() {
+    }
+
+    public AuthorDetailsDTO(Integer id, String name, String imageUrl, String description) {
+        this.id = id;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.description = description;
     }
 
     public String getName() {

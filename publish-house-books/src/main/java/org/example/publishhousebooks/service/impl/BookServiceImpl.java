@@ -1,6 +1,8 @@
 package org.example.publishhousebooks.service.impl;
 
 import org.example.publishhousebooks.model.dtos.AddBookDTO;
+import org.example.publishhousebooks.model.dtos.BookDetailsDTO;
+import org.example.publishhousebooks.model.dtos.CategoryDetailsDTO;
 import org.example.publishhousebooks.model.entities.AuthorEntity;
 import org.example.publishhousebooks.model.entities.BookEntity;
 import org.example.publishhousebooks.model.entities.CategoryEntity;
@@ -12,7 +14,9 @@ import org.example.publishhousebooks.service.exeption.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -42,5 +46,15 @@ public class BookServiceImpl implements BookService {
         bookToAdd.setAuthor(authorOpt.get());
         bookToAdd.setCategory(categoryOpt.get());
         this.bookRepository.saveAndFlush(bookToAdd);
+    }
+
+    @Override
+    public List<BookDetailsDTO> getAllBooks() {
+        return bookRepository.findAll().stream().map(BookServiceImpl::map).collect(Collectors.toList());
+    }
+
+    private static BookDetailsDTO map(BookEntity book){
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(book, BookDetailsDTO.class);
     }
 }

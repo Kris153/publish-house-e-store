@@ -1,40 +1,39 @@
-package org.example.publishhousebooks.model.entities;
+package org.example.publishhousebooks.model.dtos;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import org.example.publishhousebooks.model.entities.AuthorEntity;
+import org.example.publishhousebooks.model.entities.CategoryEntity;
 
-@Entity
-@Table(name = "books")
-public class BookEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BookDetailsDTO {
     private Integer id;
-    @Column(nullable = false)
-    private String title;
-    @Column(nullable = false, name = "image_url")
-    private String imageUrl;
-    @Column(nullable = false, name = "short_description", columnDefinition = "TEXT")
-    private String shortDescription;
-    @Column(nullable = false, name = "long_description", columnDefinition = "TEXT")
-    private String longDescription;
-    @Column(nullable = false)
-    private Double price;
-    @ManyToOne
-    private AuthorEntity author;
-    @ManyToOne
-    private CategoryEntity category;
 
-    public BookEntity() {
+    private String title;
+
+    private String imageUrl;
+
+    private String shortDescription;
+
+    private String longDescription;
+
+    private Double price;
+
+    private String authorName;
+
+    private String categoryName;
+
+    public BookDetailsDTO() {
     }
 
-    public BookEntity(Integer id, String title, String imageUrl, String shortDescription, String longDescription, Double price, AuthorEntity author, CategoryEntity category) {
+    public BookDetailsDTO(Integer id, String title, String imageUrl, String shortDescription, String longDescription, Double price, String authorName, String categoryName) {
         this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.price = price;
-        this.author = author;
-        this.category = category;
+        this.authorName = authorName;
+        this.categoryName = categoryName;
     }
 
     public Integer getId() {
@@ -85,19 +84,19 @@ public class BookEntity {
         this.price = price;
     }
 
-    public AuthorEntity getAuthor() {
-        return author;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthor(AuthorEntity author) {
-        this.author = author;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
-    public CategoryEntity getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }
