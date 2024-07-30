@@ -7,6 +7,7 @@ import org.example.publishhousebooks.model.entities.AuthorEntity;
 import org.example.publishhousebooks.model.entities.CategoryEntity;
 import org.example.publishhousebooks.repository.AuthorRepository;
 import org.example.publishhousebooks.service.AuthorService;
+import org.example.publishhousebooks.service.exeption.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +27,17 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void addAuthor(AddAuthorDTO addAuthorDTO) {
         AuthorEntity authorToAdd = this.modelMapper.map(addAuthorDTO, AuthorEntity.class);
-        this.authorRepository.saveAndFlush(authorToAdd);
+        this.authorRepository.save(authorToAdd);
     }
 
     @Override
     public List<AuthorDetailsDTO> getAllAuthors() {
         return this.authorRepository.findAll().stream().map(AuthorServiceImpl::map).collect(Collectors.toList());
+    }
+
+    @Override
+    public AuthorDetailsDTO getAuthorDetailsDTOByName(String authorName) {
+        return this.authorRepository.findByName(authorName).map(AuthorServiceImpl::map).orElseThrow(ObjectNotFoundException::new);
     }
 
     private static AuthorDetailsDTO map(AuthorEntity author){

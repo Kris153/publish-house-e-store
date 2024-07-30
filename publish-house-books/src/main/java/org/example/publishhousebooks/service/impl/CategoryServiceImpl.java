@@ -7,6 +7,7 @@ import org.example.publishhousebooks.repository.CategoryRepository;
 import org.example.publishhousebooks.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryEntity categoryToAdd = this.modelMapper.map(addCategoryDTO, CategoryEntity.class);
         this.categoryRepository.saveAndFlush(categoryToAdd);
     }
-
+    @Transactional
     @Override
     public List<CategoryDetailsDTO> getAllCategories() {
         return categoryRepository.findAll().stream().map(CategoryServiceImpl::map).collect(Collectors.toList());
@@ -34,6 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     private static CategoryDetailsDTO map(CategoryEntity category){
         ModelMapper mapper = new ModelMapper();
-        return mapper.map(category, CategoryDetailsDTO.class);
+        CategoryDetailsDTO mapped = mapper.map(category, CategoryDetailsDTO.class);
+        mapped.setNumberOfBooks(category.getBooks().size());
+        return mapped;
     }
 }
