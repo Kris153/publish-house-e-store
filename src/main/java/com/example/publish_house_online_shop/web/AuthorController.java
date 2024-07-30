@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,8 +24,9 @@ public class AuthorController {
         return new AddAuthorDTO();
     }
 
-    @GetMapping("/author")
-    public String viewAuthor(){
+    @GetMapping("/authors/{name}")
+    public String viewAuthor(@PathVariable("name") String authorName, Model model){
+        model.addAttribute("authorDetails", this.authorService.getAuthorDetailsDTOByName(authorName));
         return "author";
     }
 
@@ -41,6 +43,6 @@ public class AuthorController {
         }
         this.authorService.addAuthor(authorData);
         redirectAttributes.addFlashAttribute("successfulAddAuthor", true);
-        return "redirect:/index";
+        return "redirect:/";
     }
 }

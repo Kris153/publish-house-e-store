@@ -2,6 +2,7 @@ package com.example.publish_house_online_shop.service.impl;
 
 import com.example.publish_house_online_shop.model.dtos.AddAuthorDTO;
 import com.example.publish_house_online_shop.model.dtos.AuthorDetailsDTO;
+import com.example.publish_house_online_shop.model.dtos.BookDetailsDTO;
 import com.example.publish_house_online_shop.service.AuthorService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
@@ -27,5 +28,15 @@ public class AuthorServiceImpl implements AuthorService {
     public List<AuthorDetailsDTO> getAllAuthors() {
         return this.bookRestClient.get().uri("/authors").accept(MediaType.APPLICATION_JSON).retrieve().body(new ParameterizedTypeReference<>() {
         });
+    }
+
+    @Override
+    public AuthorDetailsDTO getAuthorDetailsDTOByName(String authorName) {
+        return this.bookRestClient
+                .get()
+                .uri("/authors/{name}", authorName)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(AuthorDetailsDTO.class);
     }
 }

@@ -9,4 +9,10 @@ public interface BookService {
     void addBook(AddBookDTO addBookDTO);
 
     List<BookDetailsDTO> getAllBooks();
+
+    BookDetailsDTO getBookDetailsDTOById(Integer bookId);
+
+    List<BookDetailsDTO> getAllBooksByCategory(String categoryName);
+
+    void deleteById(Integer bookId);
 }

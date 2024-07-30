@@ -10,31 +10,38 @@
     <div class="row mt-5 mb-5">
         <div class="col-2"></div>
         <div class="col-4 me-5">
-            <img class="img-thumbnail" src="/img/BookCover1.png" alt="snimka">
+            <img class="img-thumbnail" th:src="${bookDetails.imageUrl}" alt="image">
         </div>
 
         <div class="col-3">
             <div class="row mb-3">
-                <h1>Title</h1>
+                <h1 th:text="${bookDetails.title}">Title</h1>
             </div>
             <div class="row">
-                <h3>25.00 лв.</h3>
+                <h3> <span th:text="${#numbers.formatDecimal(bookDetails.price, 0, 2)}">25.00</span>лв.</h3>
             </div>
             <div class="row mb-3">
-                <h4>Short description. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, aspernatur! Asperiores repellat quam praesentium. Maiores tenetur possimus fuga illo error?</h4>
+                <h4 th:text="${bookDetails.shortDescription}">Short description. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, aspernatur! Asperiores repellat quam praesentium. Maiores tenetur possimus fuga illo error?</h4>
             </div>
             <div class="row mb-3">
                 <button class="btn btn-primary">Add to cart</button>
             </div>
             <div class="row">
-                <h5>Author: <a class="text-dark  link-underline  link-underline-opacity-0" href="#">Author Name</a></h5>
+                <h5>Author: <a class="text-success  link-underline  link-underline-opacity-0" th:href="@{/authors/{name}(name=${bookDetails.authorName})}" th:text="${bookDetails.authorName}">Author name</a></h5>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col">
+            <h4 th:text="${bookDetails.longDescription}">Description. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa officia debitis, nobis veniam unde doloribus. Repellendus obcaecati, quidem rerum iusto numquam dolorum placeat exercitationem velit? Dolores optio, error placeat aliquam deleniti minima perferendis. Cum, harum. Perspiciatis veniam cupiditate soluta voluptatum accusantium a iure deserunt error amet excepturi eligendi pariatur possimus ipsam non, atque, recusandae ipsa, beatae quibusdam. Sint ea fuga saepe provident a repellendus. Expedita, velit doloremque repellat quae perspiciatis ad voluptas rem nesciunt obcaecati labore aut ipsa voluptatum provident porro asperiores est nihil quaerat ut. Quod eum ipsam facilis, perferendis voluptates recusandae. Corrupti saepe veniam quos culpa nemo sequi quae possimus esse nisi repellat deserunt maxime quasi, quas quia nulla laboriosam blanditiis itaque, eum necessitatibus officiis tempora excepturi numquam. Blanditiis vitae, asperiores aut doloribus explicabo unde atque ducimus consequuntur minus ipsam dolorem porro tenetur debitis tempore nihil quaerat ad cumque dolor deserunt? Enim rem exercitationem dolorum consectetur quasi cupiditate repellendus laudantium repellat, quibusdam distinctio tempore? Possimus ipsa, nulla repellendus fugiat nobis accusamus ipsum atque sed amet enim dolore eum optio harum? Dolorem aliquam eius eos cum vero? Corporis obcaecati esse explicabo eum ea accusantium? Optio, voluptatibus! Et doloremque eius illo dolorem quam id blanditiis at. Cupiditate recusandae odio labore!</h4>
+        </div>
+        <div class="col-2"></div>
     </div>
     <div class="row mb-5">
         <div class="col-2"></div>
         <div class="col">
-            <h4>Description. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa officia debitis, nobis veniam unde doloribus. Repellendus obcaecati, quidem rerum iusto numquam dolorum placeat exercitationem velit? Dolores optio, error placeat aliquam deleniti minima perferendis. Cum, harum. Perspiciatis veniam cupiditate soluta voluptatum accusantium a iure deserunt error amet excepturi eligendi pariatur possimus ipsam non, atque, recusandae ipsa, beatae quibusdam. Sint ea fuga saepe provident a repellendus. Expedita, velit doloremque repellat quae perspiciatis ad voluptas rem nesciunt obcaecati labore aut ipsa voluptatum provident porro asperiores est nihil quaerat ut. Quod eum ipsam facilis, perferendis voluptates recusandae. Corrupti saepe veniam quos culpa nemo sequi quae possimus esse nisi repellat deserunt maxime quasi, quas quia nulla laboriosam blanditiis itaque, eum necessitatibus officiis tempora excepturi numquam. Blanditiis vitae, asperiores aut doloribus explicabo unde atque ducimus consequuntur minus ipsam dolorem porro tenetur debitis tempore nihil quaerat ad cumque dolor deserunt? Enim rem exercitationem dolorum consectetur quasi cupiditate repellendus laudantium repellat, quibusdam distinctio tempore? Possimus ipsa, nulla repellendus fugiat nobis accusamus ipsum atque sed amet enim dolore eum optio harum? Dolorem aliquam eius eos cum vero? Corporis obcaecati esse explicabo eum ea accusantium? Optio, voluptatibus! Et doloremque eius illo dolorem quam id blanditiis at. Cupiditate recusandae odio labore!</h4>
+            <h4>For more information about the author: <a class="text-success link-underline  link-underline-opacity-0" th:href="@{/authors/{name}(name=${bookDetails.authorName})}" th:text="${bookDetails.authorName}">Author name</a></h4>
         </div>
         <div class="col-2"></div>
     </div>

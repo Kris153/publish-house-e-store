@@ -31,9 +31,10 @@ public class HomeController {
         return false;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String viewHomePage(Model model){
         model.addAttribute("books", this.bookService.getAllBooks());
         return "index";
     }
+
 }

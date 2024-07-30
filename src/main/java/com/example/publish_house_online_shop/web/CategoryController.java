@@ -37,6 +37,6 @@ public class CategoryController {
         }
         redirectAttributes.addFlashAttribute("successfulAddCategory", true);
         this.categoryService.addCategory(categoryData);
-        return "redirect:/index";
+        return "redirect:/";
     }
 }

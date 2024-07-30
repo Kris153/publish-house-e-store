@@ -4,13 +4,15 @@ public class CategoryDetailsDTO {
     private Integer id;
 
     private String name;
+    private Integer numberOfBooks;
 
     public CategoryDetailsDTO() {
     }
 
-    public CategoryDetailsDTO(Integer id, String name) {
+    public CategoryDetailsDTO(Integer id, String name, Integer numberOfBooks) {
         this.id = id;
         this.name = name;
+        this.numberOfBooks = numberOfBooks;
     }
 
     public Integer getId() {
@@ -27,5 +29,13 @@ public class CategoryDetailsDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getNumberOfBooks() {
+        return numberOfBooks;
+    }
+
+    public void setNumberOfBooks(Integer numberOfBooks) {
+        this.numberOfBooks = numberOfBooks;
     }
 }

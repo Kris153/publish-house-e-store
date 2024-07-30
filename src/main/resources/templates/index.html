@@ -70,7 +70,7 @@
                     <div class="card-text"> <span th:text="${#numbers.formatDecimal(book.price, 0, 2)}">30</span>лв.</div>
                     <div class="row mt-2 g-1">
                         <div class="col">
-                            <form >
+                            <form th:action="@{/books/{id}(id=${book.id})}" th:method="GET">
                                 <button type="submit" class="btn-success btn btn-sm rounded-5">Read more</button>
                             </form>
                         </div>
