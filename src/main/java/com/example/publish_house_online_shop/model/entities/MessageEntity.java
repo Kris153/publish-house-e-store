@@ -1,6 +1,6 @@
 package com.example.publish_house_online_shop.model.entities;
 
-import com.example.publish_house_online_shop.model.enums.MessageStatus;
+import com.example.publish_house_online_shop.model.enums.MessageStatusEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,7 +15,7 @@ public class MessageEntity {
     private String title;
     @Enumerated(value = EnumType.STRING)
     @Column
-    private MessageStatus status;
+    private MessageStatusEnum status;
     @ManyToOne
     private UserEntity user;
 }

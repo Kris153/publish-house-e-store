@@ -1,6 +1,6 @@
 package com.example.publish_house_online_shop.model.entities;
 
-import com.example.publish_house_online_shop.model.enums.OrderStatus;
+import com.example.publish_house_online_shop.model.enums.OrderStatusEnum;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class OrderEntity {
     private UserEntity user;
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    private OrderStatus status;
+    private OrderStatusEnum status;
     @Column(nullable = false)
     private String shippingName;
     @Column(nullable = false)

@@ -4,25 +4,30 @@
 <body>
 <header th:replace="fragments/commons::header"></header>
 
-<img class="position-relative img-fluid overflow-y-hidden" style="height: 100vh; width: 100vw;" src="/img/FormPageImg.jpg" alt="snimka">
+<img class="position-relative img-fluid overflow-y-hidden" style="height: 100vh; width: 100vw;" src="/images/FormPageImg.jpg" alt="snimka">
 <div class="container position-absolute top-50 start-50 translate-middle">
     <div class="row mt-5">
         <div class="col-4"></div>
         <div class="col-4">
             <h2 class="text-white mt-3 text-center">Log in</h2>
-            <form>
+            <form th:action="@{/login}" th:method="POST" th:object="${loginData}">
                 <div class="form-floating mt-3">
-                    <input type="email" id="email" class="form-control"
-                           placeholder="Place email  here">
-                    <label for="email" class="form-label">Email</label>
+                    <input type="text" id="username" class="form-control"
+                           placeholder="Place username here"
+                    th:field="*{username}" name="username">
+                    <label for="username" class="form-label">Username</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="password" class="form-control"
-                           placeholder="Place message  here">
+                           placeholder="Place message  here"
+                    th:field="*{password}" name="password">
                     <label for="password" class="form-label">Password</label>
                 </div>
+                <p th:if="${hasErrors}" class="errors alert alert-danger mt-3">
+                    Invalid username or password.
+                </p>
                 <div class="text-center">
-                    <button class="mt-3 btn btn-success mb-3">Submit</button>
+                    <button type="submit" class="mt-3 btn btn-success mb-3">Login</button>
                 </div>
             </form>
         </div>

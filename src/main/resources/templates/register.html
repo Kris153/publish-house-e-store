@@ -4,33 +4,54 @@
 <body>
 <header th:replace="fragments/commons::header"></header>
 
-<img class="position-relative img-fluid overflow-y-hidden" style="height: 100vh; width: 100vw;" src="/img/FormPageImg.jpg" alt="snimka">
+<img class="position-relative img-fluid overflow-y-hidden" style="height: 100vh; width: 100vw;" src="/images/FormPageImg.jpg" alt="snimka">
 <div class="container position-absolute top-50 start-50 translate-middle">
     <div class="row mt-5">
         <div class="col-4"></div>
         <div class="col-4">
             <h2 class="text-white mt-3 text-center">Register</h2>
-            <form>
+            <form th:action="@{/register}" th:method="POST" th:object="${registerData}">
                 <div class="form-floating mt-3">
                     <input type="text" id="username" class="form-control"
-                           placeholder="Place username  here">
+                           placeholder="Place username here"
+                           th:field="*{username}"
+                           th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('username')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="username" class="form-label">Username</label>
                 </div>
+                <p th:if="${doUsernameExists}" class="errors alert alert-danger mt-3">
+                    This username exists. Try again with another one.
+                </p>
                 <div class="form-floating mt-3">
                     <input type="email" id="email" class="form-control"
-                           placeholder="Place email  here">
+                           placeholder="Place email here"
+                           th:field="*{email}"
+                           th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('email')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="email" class="form-label">Email</label>
                 </div>
+                <p th:if="${doEmailExists}" class="errors alert alert-danger mt-3">
+                    This email exists. Try again with another one.
+                </p>
                 <div class="form-floating mt-3">
                     <input type="text" id="password" class="form-control"
-                           placeholder="Place message  here">
+                           placeholder="Place password here"
+                           th:field="*{password}"
+                           th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('password')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="password" class="form-label">Password</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="confirm_password" class="form-control"
-                           placeholder="Place confirm password  here">
+                           placeholder="Place confirm password here"
+                           th:field="*{confirmPassword}"
+                           th:errorclass="'is-invalid alert-danger'">
+                    <div th:each="error: ${#fields.errors('confirmPassword')}" th:text="${error}" class="text-danger">Error messages</div>
                     <label for="confirm_password" class="form-label">Confirm password</label>
                 </div>
+                <p th:if="${hasPasswordErrors}" class="errors alert alert-danger mt-3">
+                    Password and confirm password are not the same.
+                </p>
                 <div class="text-center">
                     <button class="mt-3 btn btn-success mb-3">Register</button>
                 </div>
