@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::header"></header>
@@ -23,7 +24,7 @@
             <div class="row mb-3">
                 <h4 th:text="${bookDetails.shortDescription}">Short description. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, aspernatur! Asperiores repellat quam praesentium. Maiores tenetur possimus fuga illo error?</h4>
             </div>
-            <div class="row mb-3">
+            <div class="row mb-3" sec:authorize="isAuthenticated()">
                 <button class="btn btn-primary">Add to cart</button>
             </div>
             <div class="row">

@@ -30,6 +30,10 @@ public class HomeController {
     public boolean addIsAddedBookValueToModel(){
         return false;
     }
+    @ModelAttribute("successfulAddMessage")
+    private boolean addIsAddedMessageValueToModel(){
+        return false;
+    }
 
     @GetMapping("/")
     public String viewHomePage(Model model){

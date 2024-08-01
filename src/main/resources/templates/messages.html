@@ -7,142 +7,28 @@
     <div class="row text-center mb-5">
         <h1>All messages</h1>
     </div>
-    <div class="row text-center mb-3">
-        <div class="col-4"></div>
+    <div class="row text-center mb-3" th:each="message:${messages}">
+        <div class="col-2"></div>
         <div class="col">
             <div class="row border border-3 rounded-pill">
                 <div class="col">
-                    <h3 class="pt-3 pb-3">Title</h3>
+                    <h3 class="pt-3 pb-3" th:text="${message.messageTitle}">Title</h3>
                 </div>
                 <div class="col">
-                    <h5 class="pt-4 pb-3">Status: <span>Seen</span></h5>
+                    <h5 class="pt-4 pb-3">Status: <span th:text="${message.status}">Seen</span></h5>
                 </div>
-                <div class="col">
-                    <form class="pt-3 pb-3" th:action="@{message}" th:method="get"><button class="btn btn-info rounded-5">See more</button></form>
+                <div class="col text-end">
+                    <form class="pt-3 pb-3 pe-3" th:action="@{/messages/{id}(id=${message.id})}" th:method="GET"><button class="btn btn-info rounded-5">See more</button></form>
                 </div>
             </div>
         </div>
-        <div class="col-4"></div>
+        <div class="col-2"></div>
     </div>
-    <div class="row text-center mb-3">
-        <div class="col-4"></div>
-        <div class="col">
-            <div class="row border border-3 rounded-pill">
-                <div class="col">
-                    <h3 class="pt-3 pb-3">Title</h3>
-                </div>
-                <div class="col">
-                    <h5 class="pt-4 pb-3">Status: <span>Seen</span></h5>
-                </div>
-                <div class="col">
-                    <form class="pt-3 pb-3" th:action="@{message}" th:method="get"><button class="btn btn-info rounded-5">See more</button></form>
-                </div>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row text-center mb-3">
-        <div class="col-4"></div>
-        <div class="col">
-            <div class="row border border-3 rounded-pill">
-                <div class="col">
-                    <h3 class="pt-3 pb-3">Title</h3>
-                </div>
-                <div class="col">
-                    <h5 class="pt-4 pb-3">Status: <span>Seen</span></h5>
-                </div>
-                <div class="col">
-                    <form class="pt-3 pb-3" th:action="@{message}" th:method="get"><button class="btn btn-info rounded-5">See more</button></form>
-                </div>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row text-center mb-3">
-        <div class="col-4"></div>
-        <div class="col">
-            <div class="row border border-3 rounded-pill">
-                <div class="col">
-                    <h3 class="pt-3 pb-3">Title</h3>
-                </div>
-                <div class="col">
-                    <h5 class="pt-4 pb-3">Status: <span>Seen</span></h5>
-                </div>
-                <div class="col">
-                    <form class="pt-3 pb-3" th:action="@{message}" th:method="get"><button class="btn btn-info rounded-5">See more</button></form>
-                </div>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row text-center mb-3">
-        <div class="col-4"></div>
-        <div class="col">
-            <div class="row border border-3 rounded-pill">
-                <div class="col">
-                    <h3 class="pt-3 pb-3">Title</h3>
-                </div>
-                <div class="col">
-                    <h5 class="pt-4 pb-3">Status: <span>Seen</span></h5>
-                </div>
-                <div class="col">
-                    <form class="pt-3 pb-3" th:action="@{message}" th:method="get"><button class="btn btn-info rounded-5">See more</button></form>
-                </div>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row text-center mb-3">
-        <div class="col-4"></div>
-        <div class="col">
-            <div class="row border border-3 rounded-pill">
-                <div class="col">
-                    <h3 class="pt-3 pb-3">Title</h3>
-                </div>
-                <div class="col">
-                    <h5 class="pt-4 pb-3">Status: <span>Seen</span></h5>
-                </div>
-                <div class="col">
-                    <form class="pt-3 pb-3" th:action="@{message}" th:method="get"><button class="btn btn-info rounded-5">See more</button></form>
-                </div>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row text-center mb-3">
-        <div class="col-4"></div>
-        <div class="col">
-            <div class="row border border-3 rounded-pill">
-                <div class="col">
-                    <h3 class="pt-3 pb-3">Title</h3>
-                </div>
-                <div class="col">
-                    <h5 class="pt-4 pb-3">Status: <span>Seen</span></h5>
-                </div>
-                <div class="col">
-                    <form class="pt-3 pb-3" th:action="@{message}" th:method="get"><button class="btn btn-info rounded-5">See more</button></form>
-                </div>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row text-center mb-3">
-        <div class="col-4"></div>
-        <div class="col">
-            <div class="row border border-3 rounded-pill">
-                <div class="col">
-                    <h3 class="pt-3 pb-3">Title</h3>
-                </div>
-                <div class="col">
-                    <h5 class="pt-4 pb-3">Status: <span>Seen</span></h5>
-                </div>
-                <div class="col">
-                    <form class="pt-3 pb-3" th:action="@{message}" th:method="get"><button class="btn btn-info rounded-5">See more</button></form>
-                </div>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
+    <div class="row mt-5 mb-5"></div>
+    <div class="row mt-5 mb-5"></div>
+    <div class="row mt-5 mb-5"></div>
+    <div class="row mt-5 mb-5"></div>
+    <div class="row mt-5 mb-5"></div>
 
 </div>
 <footer th:replace="fragments/commons::footer"></footer>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -32,17 +33,23 @@
                     <li class="nav-item ms-5">
                         <a th:href="@{/contact}" class="nav-link">Contacts</a>
                     </li>
-                    <li class="nav-item ms-5">
+                    <li class="nav-item ms-5" sec:authorize="!isAuthenticated()">
                         <a th:href="@{/login}" class="nav-link">Login</a>
                     </li>
-                    <li class="nav-item ms-5">
+                    <li class="nav-item ms-5" sec:authorize="!isAuthenticated()">
                         <a th:href="@{/register}" class="nav-link">Register</a>
                     </li>
-                    <li class="nav-item ms-5">
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item ms-5">
                         <a th:href="@{/admin}" class="nav-link">Admin</a>
                     </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item ms-5">
+                        <form th:method="POST"
+                              th:action="@{/logout}">
+                            <input class="btn btn-link nav-link link-underline  link-underline-opacity-0" type="submit" value="Logout"/>
+                        </form>
+                    </li>
                     <li class="nav-item ms-5">
-                        <a class="text-white btn btn-success rounded-5" th:href="@{cart}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                        <a class="text-white btn btn-success rounded-5" th:href="@{/cart}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                         </svg></a>
                     </li>

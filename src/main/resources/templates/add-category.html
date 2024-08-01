@@ -10,7 +10,7 @@
         <div class="col-4"></div>
         <div class="col-4">
             <h2 class="text-white mt-3 text-center">Add category</h2>
-            <form th:method="POST" th:action="@{add-category}" th:object="${categoryData}">
+            <form th:method="POST" th:action="@{/add-category}" th:object="${categoryData}">
                 <div class="form-floating mt-3">
                     <input type="text" id="name" class="form-control"
                            th:field="*{name}"

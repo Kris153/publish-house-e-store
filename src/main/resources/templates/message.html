@@ -8,19 +8,19 @@
         <div class="col-2"></div>
         <div class="col bg-info p-4 bg-opacity-25 rounded-5">
             <div class="row">
-                <h2>From: <span>Name</span></h2>
+                <h2>From: <span th:text="${message.username}">Name</span></h2>
             </div>
             <div class="row">
-                <h3>Email: <span>exaple@email.com</span></h3>
+                <h3>Email: <span th:text="${message.email}">exaple@email.com</span></h3>
             </div>
-            <div class="row mt-5">
-                <h3>Message: <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam modi nam repudiandae aut eveniet dolore mollitia odio sint aperiam, ex ut saepe corrupti impedit dignissimos assumenda beatae ea excepturi similique id. Autem ipsam deserunt, sit cum ipsa voluptatem aspernatur maiores culpa laboriosam eos consequuntur corrupti atque doloribus voluptatibus facilis officia in esse veniam ut sed aut asperiores cupiditate voluptates! Dolorum optio similique quasi, harum, aliquam pariatur animi, sequi quae magni dolorem beatae delectus. Sequi impedit adipisci excepturi labore eum quos tempora maxime ex cum quis sunt non, ullam numquam iusto esse temporibus sapiente dolores delectus laudantium necessitatibus voluptatum molestiae. Inventore?</span></h3>
+            <div class="row mt-3">
+                <h3>Message: <span th:text="${message.text}">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam modi nam repudiandae aut eveniet dolore mollitia odio sint aperiam, ex ut saepe corrupti impedit dignissimos assumenda beatae ea excepturi similique id. Autem ipsam deserunt, sit cum ipsa voluptatem aspernatur maiores culpa laboriosam eos consequuntur corrupti atque doloribus voluptatibus facilis officia in esse veniam ut sed aut asperiores cupiditate voluptates! Dolorum optio similique quasi, harum, aliquam pariatur animi, sequi quae magni dolorem beatae delectus. Sequi impedit adipisci excepturi labore eum quos tempora maxime ex cum quis sunt non, ullam numquam iusto esse temporibus sapiente dolores delectus laudantium necessitatibus voluptatum molestiae. Inventore?</span></h3>
             </div>
-            <div class="row mt-5">
-                <form action=""><button class="btn btn-success rounded-5">Change status to seen</button></form>
+            <div class="row mt-5" th:if="${!isStatusSeen}">
+                <form th:action="@{/messages/change-status/{id}(id=${message.id})}" th:method="PATCH"><button class="btn btn-success rounded-5">Change status to seen</button></form>
             </div>
         </div>
-        <div class="col-2"></div>
+        <div class="col-2" ></div>
     </div>
     <div class="row mt-5 mb-5"></div>
     <div class="row mt-5 mb-5"></div>
