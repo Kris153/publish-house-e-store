@@ -1,4 +1,4 @@
-package org.example.publishhousebooks.service.exeption;
+package org.example.publishhousebooks.service.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

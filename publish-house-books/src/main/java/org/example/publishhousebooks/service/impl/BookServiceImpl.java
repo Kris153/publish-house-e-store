@@ -2,7 +2,6 @@ package org.example.publishhousebooks.service.impl;
 
 import org.example.publishhousebooks.model.dtos.AddBookDTO;
 import org.example.publishhousebooks.model.dtos.BookDetailsDTO;
-import org.example.publishhousebooks.model.dtos.CategoryDetailsDTO;
 import org.example.publishhousebooks.model.entities.AuthorEntity;
 import org.example.publishhousebooks.model.entities.BookEntity;
 import org.example.publishhousebooks.model.entities.CategoryEntity;
@@ -10,8 +9,8 @@ import org.example.publishhousebooks.repository.AuthorRepository;
 import org.example.publishhousebooks.repository.BookRepository;
 import org.example.publishhousebooks.repository.CategoryRepository;
 import org.example.publishhousebooks.service.BookService;
-import org.example.publishhousebooks.service.exeption.BadRequestException;
-import org.example.publishhousebooks.service.exeption.ObjectNotFoundException;
+import org.example.publishhousebooks.service.exception.BadRequestException;
+import org.example.publishhousebooks.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
