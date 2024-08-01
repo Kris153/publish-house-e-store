@@ -2,7 +2,9 @@ package com.example.publish_house_online_shop.web;
 
 import com.example.publish_house_online_shop.model.dtos.AddMessageDTO;
 import com.example.publish_house_online_shop.model.dtos.MessageDetailsDTO;
+import com.example.publish_house_online_shop.model.enums.UserRoleEnum;
 import com.example.publish_house_online_shop.service.MessageService;
+import com.example.publish_house_online_shop.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +15,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class MessageController {
     private final MessageService messageService;
+    private final UserService userService;
 
-    public MessageController(MessageService messageService) {
+    public MessageController(MessageService messageService, UserService userService) {
         this.messageService = messageService;
+        this.userService = userService;
     }
 
     @GetMapping("/messages")
     public String viewMessages(Model model){
+        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+            return "redirect:/";
+        }
         model.addAttribute("messages", this.messageService.getAllMessages());
         return "messages";
     }
     @GetMapping("/messages/{id}")
     public String viewMessage(@PathVariable("id") Integer messageId, Model model){
+        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+            return "redirect:/";
+        }
         MessageDetailsDTO message = this.messageService.getMessageById(messageId);
         model.addAttribute("message", message);
         model.addAttribute("isStatusSeen", message.getStatus().equals("SEEN"));

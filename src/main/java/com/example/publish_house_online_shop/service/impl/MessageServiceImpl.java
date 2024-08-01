@@ -7,6 +7,7 @@ import com.example.publish_house_online_shop.model.enums.MessageStatusEnum;
 import com.example.publish_house_online_shop.repository.MessageRepository;
 import com.example.publish_house_online_shop.service.MessageService;
 import com.example.publish_house_online_shop.service.UserService;
+import com.example.publish_house_online_shop.service.exception.BadRequestException;
 import com.example.publish_house_online_shop.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class MessageServiceImpl implements MessageService {
     public void changeMessageStatusToSeenById(Integer messageId) {
         Optional<MessageEntity> messageOpt = this.messageRepository.findById(messageId);
         if(messageOpt.isEmpty()){
-            throw new ObjectNotFoundException();
+            throw new BadRequestException();
         }
         MessageEntity message = messageOpt.get();
         message.setStatus(MessageStatusEnum.SEEN);

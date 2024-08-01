@@ -1,7 +1,9 @@
 package com.example.publish_house_online_shop.web;
 
 import com.example.publish_house_online_shop.model.dtos.AddCategoryDTO;
+import com.example.publish_house_online_shop.model.enums.UserRoleEnum;
 import com.example.publish_house_online_shop.service.CategoryService;
+import com.example.publish_house_online_shop.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CategoryController {
     private final CategoryService categoryService;
+    private final UserService userService;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, UserService userService) {
         this.categoryService = categoryService;
+        this.userService = userService;
     }
 
     @ModelAttribute("categoryData")
@@ -25,6 +29,9 @@ public class CategoryController {
     }
     @GetMapping("/add-category")
     public String viewAddCategory(){
+        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+            return "redirect:/";
+        }
         return "add-category";
     }
 
