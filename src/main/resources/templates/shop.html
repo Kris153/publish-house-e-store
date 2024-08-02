@@ -3,7 +3,10 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::header"></header>
-
+<div th:if="${successfulAddToCart}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+  You successfully added <span th:text="${titleOfAddedToCartBook}">Title</span> to the cart!
+  <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
 <h1 class="text-center mt-5">Shop</h1>
 
 <div class="container">
@@ -35,7 +38,7 @@
                 <div class="card-text"><span th:text="${#numbers.formatDecimal(book.price, 0, 2)}">30</span>лв.</div>
                 <div class="row mt-2 g-sm-1">
                   <div class="col">
-                    <form th:action="@{/add-to-cart/{id}(id=${book.id})}" th:method="POST">
+                    <form th:action="@{/shop/add-to-cart/{id}(id=${book.id})}" th:method="PUT">
                       <button type="submit" class="btn-success btn btn-sm rounded-5">Add to cart</button>
                     </form>
                   </div>

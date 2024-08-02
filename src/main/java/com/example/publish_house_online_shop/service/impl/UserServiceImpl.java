@@ -1,10 +1,15 @@
 package com.example.publish_house_online_shop.service.impl;
 
+import com.example.publish_house_online_shop.model.dtos.BookDetailsForCartDTO;
+import com.example.publish_house_online_shop.model.dtos.CartDetailsDTO;
 import com.example.publish_house_online_shop.model.dtos.UserDetailsDTO;
 import com.example.publish_house_online_shop.model.dtos.UserRegisterDTO;
+import com.example.publish_house_online_shop.model.entities.BookEntity;
+import com.example.publish_house_online_shop.model.entities.CartEntity;
 import com.example.publish_house_online_shop.model.entities.UserEntity;
 import com.example.publish_house_online_shop.model.entities.UserRoleEntity;
 import com.example.publish_house_online_shop.model.enums.UserRoleEnum;
+import com.example.publish_house_online_shop.repository.CartRepository;
 import com.example.publish_house_online_shop.repository.UserRepository;
 import com.example.publish_house_online_shop.repository.UserRoleRepository;
 import com.example.publish_house_online_shop.service.UserService;
@@ -19,11 +24,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,12 +35,14 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleRepository userRoleRepository;
+    private final CartRepository cartRepository;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository, CartRepository cartRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.userRoleRepository = userRoleRepository;
+        this.cartRepository = cartRepository;
     }
 
     @Override
@@ -46,6 +51,9 @@ public class UserServiceImpl implements UserService {
         userToAdd.setPassword(this.passwordEncoder.encode(userToAdd.getPassword()));
         userToAdd.setRoles(List.of(this.userRoleRepository.findByRole(UserRoleEnum.USER).get()));
         this.userRepository.saveAndFlush(userToAdd);
+        CartEntity cartToAdd = new CartEntity();
+        cartToAdd.setUser(this.userRepository.findByUsername(registerData.getUsername()).get());
+        this.cartRepository.saveAndFlush(cartToAdd);
     }
 
     @Override
@@ -114,6 +122,25 @@ public class UserServiceImpl implements UserService {
         }
         this.userRepository.saveAndFlush(user);
         return true;
+    }
+    @Transactional
+    @Override
+    public CartDetailsDTO getCurrentCart() {
+        Optional<CartEntity> cartOpt = this.cartRepository.findByUser(this.getCurrentUser().get());
+        if(cartOpt.isEmpty()){
+            throw new BadRequestException();
+        }
+        CartEntity cart = cartOpt.get();
+        CartDetailsDTO toReturn = new CartDetailsDTO();
+        toReturn.setTotalPrice(cart.getTotalPrice());
+        Map<BookDetailsForCartDTO, Integer> map = new HashMap<>();
+        for (BookEntity bookEntity : cart.getBooks()) {
+            BookDetailsForCartDTO mapped = this.modelMapper.map(bookEntity, BookDetailsForCartDTO.class);
+            map.putIfAbsent(mapped, 0);
+            map.put(mapped, map.get(mapped) + 1);
+        }
+        toReturn.setBooksQuantitiesMap(map);
+        return toReturn;
     }
 
     private static UserDetailsDTO map(UserEntity user){

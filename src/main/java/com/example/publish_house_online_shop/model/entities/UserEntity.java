@@ -27,17 +27,49 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<UserRoleEntity> roles;
+    @OneToMany(mappedBy = "user")
+    private List<OrderEntity> orders;
+    @OneToOne(mappedBy = "user")
+    private CartEntity cart;
 
     public UserEntity() {
         this.roles = new ArrayList<>();
+        this.orders = new ArrayList<>();
     }
 
-    public UserEntity(Integer id, String username, String email, String password, List<UserRoleEntity> roles){
+    public UserEntity(Integer id, String username, String email, String password, List<UserRoleEntity> roles, List<OrderEntity> orders) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.orders = orders;
+    }
+
+    public UserEntity(Integer id, String username, String email, String password, List<UserRoleEntity> roles, List<OrderEntity> orders, CartEntity cart){
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.orders = orders;
+        this.cart = cart;
+    }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
+    }
+
+    public CartEntity getCart() {
+        return cart;
+    }
+
+    public void setCart(CartEntity cart) {
+        this.cart = cart;
     }
 
     public Integer getId() {

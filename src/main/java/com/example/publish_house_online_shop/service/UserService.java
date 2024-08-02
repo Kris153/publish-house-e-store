@@ -1,5 +1,6 @@
 package com.example.publish_house_online_shop.service;
 
+import com.example.publish_house_online_shop.model.dtos.CartDetailsDTO;
 import com.example.publish_house_online_shop.model.dtos.UserDetailsDTO;
 import com.example.publish_house_online_shop.model.dtos.UserRegisterDTO;
 import com.example.publish_house_online_shop.model.entities.UserEntity;
@@ -22,4 +23,6 @@ public interface UserService {
     UserDetailsDTO getUserById(Integer userId);
 
     boolean changeUserRoleById(Integer userId);
+
+    CartDetailsDTO getCurrentCart();
 }

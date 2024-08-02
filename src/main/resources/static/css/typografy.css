@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Serif');
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700');
+html{
+    font: 16px/1.4 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body, table{
+    font: inherit;
+}
+h1, h2, h3, h4, h5{
+    font-family: "PT Serif", serif;
+}
+p, a{
+    font-family: "PT Sans", sans-serif;
+}

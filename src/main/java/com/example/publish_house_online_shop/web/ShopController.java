@@ -5,6 +5,7 @@ import com.example.publish_house_online_shop.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
@@ -15,6 +16,14 @@ public class ShopController {
     public ShopController(BookService bookService, CategoryService categoryService) {
         this.bookService = bookService;
         this.categoryService = categoryService;
+    }
+    @ModelAttribute("successfulAddToCart")
+    public boolean addIsAddedToCartValueToModel(){
+        return false;
+    }
+    @ModelAttribute("titleOfAddedToCartBook")
+    public String addTitleOfAddedToCartBookValueToModel(){
+        return "";
     }
 
     @GetMapping("/shop")

@@ -35,6 +35,14 @@ public class BookController {
     public boolean addIsDeletedBookValueToModel(){
         return false;
     }
+    @ModelAttribute("successfulAddToCart")
+    public boolean addIsAddedToCartValueToModel(){
+        return false;
+    }
+    @ModelAttribute("titleOfAddedToCartBook")
+    public String addTitleOfAddedToCartBookValueToModel(){
+        return "";
+    }
     @GetMapping("/books/{id}")
     public String viewBook(@PathVariable("id") Integer bookId, Model model){
         model.addAttribute("bookDetails", this.bookService.getBookDetailsDTOById(bookId));
