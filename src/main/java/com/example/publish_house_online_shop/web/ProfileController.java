@@ -23,7 +23,7 @@ public class ProfileController {
 
     @GetMapping("/profiles")
     public String viewProfiles(Model model){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
         model.addAttribute("users", this.userService.getAllUsers());
@@ -31,7 +31,7 @@ public class ProfileController {
     }
     @GetMapping("/profiles/{id}")
     public String viewProfile(@PathVariable("id") Integer userId, Model model){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
         UserDetailsDTO user = this.userService.getUserById(userId);

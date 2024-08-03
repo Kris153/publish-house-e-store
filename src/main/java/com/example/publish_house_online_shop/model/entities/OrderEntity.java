@@ -37,7 +37,7 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public OrderEntity(Integer id, UserEntity user, OrderStatusEnum status, String shippingName, String shippingEmail, String shippingPhoneNumber, String shippingAddress, List<BookEntity> books, Double totalPrice) {
+    public OrderEntity(Integer id, UserEntity user, OrderStatusEnum status, String shippingName, String shippingEmail, String shippingPhoneNumber, String shippingAddress, List<BookEntity> books, Double totalPrice, Instant createdDateTime) {
         this.id = id;
         this.user = user;
         this.status = status;
@@ -47,6 +47,7 @@ public class OrderEntity {
         this.shippingAddress = shippingAddress;
         this.books = books;
         this.totalPrice = totalPrice;
+        this.createdDateTime = createdDateTime;
     }
 
     public Integer getId() {
@@ -119,5 +120,13 @@ public class OrderEntity {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Instant getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(Instant createdDateTime) {
+        this.createdDateTime = createdDateTime;
     }
 }

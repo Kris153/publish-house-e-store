@@ -71,13 +71,17 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.existsUserEntityByEmail(registerData.getEmail());
     }
     @Override
-    public Optional<UserEntity> getCurrentUser() {
+    public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null &&
                 authentication.getPrincipal() instanceof PublishHouseUserDetails publishHouseUserDetails) {
-            return this.userRepository.findByUsername(publishHouseUserDetails.getUsername());
+            Optional<UserEntity> byUsername = this.userRepository.findByUsername(publishHouseUserDetails.getUsername());
+            if(byUsername.isEmpty()){
+                throw new ObjectNotFoundException();
+            }
+            return byUsername.get();
         }
-        return Optional.empty();
+        return null;
     }
 
     @Override
@@ -126,7 +130,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public CartDetailsDTO getCurrentCart() {
-        Optional<CartEntity> cartOpt = this.cartRepository.findByUser(this.getCurrentUser().get());
+        Optional<CartEntity> cartOpt = this.cartRepository.findByUser(this.getCurrentUser());
         if(cartOpt.isEmpty()){
             throw new BadRequestException();
         }

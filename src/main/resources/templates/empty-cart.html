@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::header"></header>
+<div class="container mt-5 mb-5">
+    <div class="row text-center mb-5">
+        <h1>Cart</h1>
+    </div>
+    <div class="row text-center mb-5">
+        <h3>Your cart is currently empty</h3>
+    </div>
+    <div class="row text-center mb-5">
+        <div class="col-4"></div>
+        <div class="col">
+            <a th:href="@{/shop}" class="btn btn-info mt-3 rounded-5">Back to the shop</a>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row mb-5 mt-5"></div>
+    <div class="row mb-5 mt-5"></div>
+    <div class="row mb-5 mt-5"></div>
+    <div class="row mb-5 mt-5"></div>
+    <div class="row mb-5 mt-5"></div>
+</div>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

@@ -36,7 +36,7 @@ public class AuthorController {
 
     @GetMapping("/add-author")
     public String viewAddAuthor(){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
         return "add-author";

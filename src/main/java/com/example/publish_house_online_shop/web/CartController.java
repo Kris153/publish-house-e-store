@@ -33,31 +33,38 @@ public class CartController {
     @GetMapping("/cart")
     public String viewCart(Model model){
         CartDetailsDTO currentCart = this.userService.getCurrentCart();
+        if(currentCart.getBooksQuantitiesMap().isEmpty()){
+            return "redirect:/empty-cart";
+        }
         model.addAttribute("cart", currentCart);
         return "cart";
     }
+    @GetMapping("/empty-cart")
+    public String viewEmptyCart(){
+        return "empty-cart";
+    }
     @PutMapping("/book/add-to-cart/{id}")
     public String bookAddToCartById(@PathVariable("id") Integer bookId, RedirectAttributes redirectAttributes){
-        this.cartService.addToCartById(bookId, this.userService.getCurrentUser().get());
+        this.cartService.addToCartById(bookId, this.userService.getCurrentUser());
         redirectAttributes.addFlashAttribute("successfulAddToCart", true);
         redirectAttributes.addFlashAttribute("titleOfAddedToCartBook", this.bookService.getBookDetailsDTOById(bookId).getTitle());
         return "redirect:/books/{id}";
     }
     @PutMapping("/shop/add-to-cart/{id}")
     public String shopAddToCartById(@PathVariable("id") Integer bookId, RedirectAttributes redirectAttributes){
-        this.cartService.addToCartById(bookId, this.userService.getCurrentUser().get());
+        this.cartService.addToCartById(bookId, this.userService.getCurrentUser());
         redirectAttributes.addFlashAttribute("successfulAddToCart", true);
         redirectAttributes.addFlashAttribute("titleOfAddedToCartBook", this.bookService.getBookDetailsDTOById(bookId).getTitle());
         return "redirect:/shop";
     }
     @PutMapping("/cart/add-book/{id}")
     public String cartAddToCartById(@PathVariable("id") Integer bookId){
-        this.cartService.addToCartById(bookId, this.userService.getCurrentUser().get());
+        this.cartService.addToCartById(bookId, this.userService.getCurrentUser());
         return "redirect:/cart";
     }
     @PutMapping("/cart/remove-book/{id}")
     public String cartRemoveFromCartById(@PathVariable("id") Integer bookId){
-        this.cartService.removeFromCartById(bookId, this.userService.getCurrentUser().get());
+        this.cartService.removeFromCartById(bookId, this.userService.getCurrentUser());
         return "redirect:/cart";
     }
 }

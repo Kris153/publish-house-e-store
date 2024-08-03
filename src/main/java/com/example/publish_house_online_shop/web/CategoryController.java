@@ -29,7 +29,7 @@ public class CategoryController {
     }
     @GetMapping("/add-category")
     public String viewAddCategory(){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
         return "add-category";

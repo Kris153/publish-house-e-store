@@ -16,10 +16,10 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String viewAdmin(Model model){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
-        model.addAttribute("username", this.userService.getCurrentUser().get().getUsername());
+        model.addAttribute("username", this.userService.getCurrentUser().getUsername());
         return "admin";
     }
 }

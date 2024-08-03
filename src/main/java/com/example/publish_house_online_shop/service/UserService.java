@@ -16,7 +16,7 @@ public interface UserService {
     boolean doUsernameExists(UserRegisterDTO registerData);
 
     boolean doEmailExists(UserRegisterDTO registerData);
-    Optional<UserEntity> getCurrentUser();
+    UserEntity getCurrentUser();
 
     List<UserDetailsDTO> getAllUsers();
 

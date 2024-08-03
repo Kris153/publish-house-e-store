@@ -6,63 +6,47 @@
 <div class="container mt-5 mb-5">
     <div class="row mt-5">
         <div class="col-2"></div>
-        <div class="col bg-warning p-4 bg-opacity-25 rounded-5">
+        <div class="col bg-warning p-4 bg-opacity-25 rounded-5" th:object="${order}">
             <div class="row mb-2">
-                <h2>User: <span>username</span></h2>
+                <h2>User: <span th:text="*{username}">username</span></h2>
             </div>
             <div class="row">
                 <h2>Shipping info: </h2>
             </div>
             <div class="row">
-                <h4>Name: <span>Name</span></h4>
+                <h4>Name: <span th:text="*{shippingName}">Name</span></h4>
             </div>
             <div class="row">
-                <h4>Email: <span>exaple@email.com</span></h4>
+                <h4>Email: <span th:text="*{shippingEmail}">exaple@email.com</span></h4>
             </div>
             <div class="row">
-                <h4>Address: <span>3905 Hillside Street</span></h4>
+                <h4>Address: <span th:text="*{shippingAddress}">3905 Hillside Street</span></h4>
             </div>
             <div class="row">
-                <h4>Phone number: <span>0855555555</span></h4>
+                <h4>Phone number: <span th:text="*{shippingPhoneNumber}">0855555555</span></h4>
             </div>
             <div class="row mt-2">
-                <h2>Date created: <span>26.07.2024</span></h2>
+                <h2>Date created: <span th:text="${#temporals.format(order.createdDateTime, 'dd-MM-yyyy HH:mm:ss')}">26.07.2024</span></h2>
             </div>
             <div class="row mt-2">
                 <h2>Books:</h2>
             </div>
-            <div class="row border border-white border-3 rounded-pill mb-3">
+            <div class="row border border-white border-3 rounded-pill mb-3" th:each="book:*{booksQuantitiesMap}">
                 <div class="col">
-                    <h3 class="pt-3 pb-3 ps-4">Title</h3>
+                    <h3 class="pt-3 pb-3 ps-4" th:text="${book.key.title}">Title</h3>
                 </div>
                 <div class="col pt-3 pb-3 pe-4 text-end">
-                    <h3>2 x <span>30.00</span>лв.</h3>
-                </div>
-            </div>
-            <div class="row border border-white border-3 rounded-pill mb-3">
-                <div class="col">
-                    <h3 class="pt-3 pb-3 ps-4">Title</h3>
-                </div>
-                <div class="col pt-3 pb-3 pe-4 text-end">
-                    <h3>2 x <span>30.00</span>лв.</h3>
-                </div>
-            </div>
-            <div class="row border border-white border-3 rounded-pill mb-3">
-                <div class="col">
-                    <h3 class="pt-3 pb-3 ps-4">Title</h3>
-                </div>
-                <div class="col pt-3 pb-3 pe-4 text-end">
-                    <h3>2 x <span>30.00</span>лв.</h3>
+                    <h3> <span th:text="${book.value}">2</span> x <span th:text="${#numbers.formatDecimal(book.key.price, 0, 2)}">30.00</span>лв.</h3>
                 </div>
             </div>
             <div class="row">
-                <h3>Total: <span>90</span>лв.</h3>
+                <h3>Total: <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 2)}">90</span>лв.</h3>
             </div>
             <div class="row mt-2">
-                <h3>Status: <span>processing</span></h3>
+                <h3>Status: <span th:text="*{status}">processing</span></h3>
             </div>
-            <div class="row mt-3">
-                <form action=""><button class="btn btn-success rounded-5">Change status to completed</button></form>
+            <div class="row mt-3" th:if="${!isCompleted}">
+                <form th:action="@{/orders/change-status/{id}(id=${order.id})}" th:method="PATCH"><button class="btn btn-success rounded-5">Change status to completed</button></form>
             </div>
         </div>
         <div class="col-2"></div>

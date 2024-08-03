@@ -32,10 +32,9 @@ public class MessageServiceImpl implements MessageService {
     public void addMessage(AddMessageDTO addMessageDTO) {
         MessageEntity message = this.modelMapper.map(addMessageDTO, MessageEntity.class);
         message.setStatus(MessageStatusEnum.NOT_SEEN);
-        message.setUser(this.userService.getCurrentUser().orElseThrow());
+        message.setUser(this.userService.getCurrentUser());
         this.messageRepository.saveAndFlush(message);
     }
-//    @Transactional
     @Override
     public List<MessageDetailsDTO> getAllMessages() {
         return this.messageRepository.findAll().stream().map(MessageServiceImpl::map).collect(Collectors.toList());

@@ -50,7 +50,7 @@ public class BookController {
     }
     @GetMapping("/books")
     public String viewAllBooks(Model model){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
         model.addAttribute("books", this.bookService.getAllBooks());
@@ -58,7 +58,7 @@ public class BookController {
     }
     @GetMapping("/add-book")
     public String viewAddBook(Model model){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
         model.addAttribute("categories", this.categoryService.getAllCategories());

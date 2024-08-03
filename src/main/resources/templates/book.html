@@ -31,7 +31,7 @@
             </div>
             <div class="row mb-3" sec:authorize="isAuthenticated()">
                 <form th:action="@{/book/add-to-cart/{id}(id=${bookDetails.id})}" th:method="PUT">
-                    <button type="submit" class="btn-primary btn rounded-5">Add to cart</button>
+                    <button type="submit" class="btn-primary btn">Add to cart</button>
                 </form>
             </div>
             <div class="row">

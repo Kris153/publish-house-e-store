@@ -65,5 +65,6 @@ public class BookServiceImpl implements BookService {
                 .delete()
                 .uri("/books/{id}", bookId)
                 .retrieve();
+        this.bookRepository.deleteById(bookId);
     }
 }

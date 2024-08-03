@@ -18,7 +18,7 @@
                 <h3>Email: <span th:text="${user.email}">exaple@email.com</span></h3>
             </div>
             <div class="row mt-2">
-                <form action=""><button class="btn btn-secondary rounded-5">Orders</button></form>
+                <form th:action="@{/orders/user/{id}(id=${user.id})}" th:method="GET"><button class="btn btn-secondary rounded-5">Orders</button></form>
             </div>
             <div class="row mt-2">
                 <h3>Role: <span th:text="${user.role}">User</span></h3>

@@ -24,7 +24,7 @@ public class MessageController {
 
     @GetMapping("/messages")
     public String viewMessages(Model model){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
         model.addAttribute("messages", this.messageService.getAllMessages());
@@ -32,7 +32,7 @@ public class MessageController {
     }
     @GetMapping("/messages/{id}")
     public String viewMessage(@PathVariable("id") Integer messageId, Model model){
-        if(this.userService.getCurrentUser().get().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
+        if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
         MessageDetailsDTO message = this.messageService.getMessageById(messageId);
