@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,5 +47,9 @@ public class CheckoutController {
         redirectAttributes.addFlashAttribute("isOrdered", true);
         this.checkoutService.finishOrder(orderData, this.userService.getCurrentUser(), this.userService.getCurrentCart());
         return "redirect:/";
+    }
+    @PostMapping("/checkout/promo-code")
+    public String usePromoCode(){
+        return "index";
     }
 }
