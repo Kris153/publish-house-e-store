@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public List<CategoryDetailsDTO> getAllCategories() {
-        return categoryRepository.findAll().stream().map(CategoryServiceImpl::map).collect(Collectors.toList());
+        return this.categoryRepository.findAll().stream().map(CategoryServiceImpl::map).collect(Collectors.toList());
     }
 
     private static CategoryDetailsDTO map(CategoryEntity category){
