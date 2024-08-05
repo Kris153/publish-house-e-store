@@ -23,6 +23,10 @@
     Congratulations! You successfully send a message!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
+<div th:if="${successfulAddPromoCode}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Congratulations! You successfully added a promo code!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
 <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5"
      style="background-image: url(/images/IndexPageImg.jpg);">
     <div class="container">
@@ -70,7 +74,7 @@
                 <img th:src="${book.getImageUrl()}" alt="image" class="card-img-top img-thumbnail"/>
                 <div class="card-body">
                     <span class="card-subtitle" th:text="${book.getCategoryName()}">Category</span>
-                    <h2 class="card-title" th:text="${book.getTitle()}">Title</h2>
+                    <h3 class="card-title" th:text="${book.getTitle()}">Title</h3>
                     <div class="card-text"> <span th:text="${#numbers.formatDecimal(book.price, 0, 2)}">30</span>лв.</div>
                     <div class="row mt-2 g-1">
                         <div class="col">

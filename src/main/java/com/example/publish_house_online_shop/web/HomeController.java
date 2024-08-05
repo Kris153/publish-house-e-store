@@ -34,6 +34,12 @@ public class HomeController {
     private boolean addIsAddedMessageValueToModel(){
         return false;
     }
+    @ModelAttribute("successfulAddPromoCode")
+    private boolean addIsAddedPromoCodeValueToModel(){
+        return false;
+    }
+
+
 
     @GetMapping("/")
     public String viewHomePage(Model model){

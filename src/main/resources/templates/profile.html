@@ -24,7 +24,7 @@
                 <h3>Role: <span th:text="${user.role}">User</span></h3>
             </div>
             <div class="row mt-2">
-                <form th:action="@{/profiles/change-role/{id}(id=${user.id})}" th:method="PATCH"><button class="btn btn-success rounded-5">Change role to <span th:if="${!isAdmin}">admin</span> <span th:if="${isAdmin}">user</span></button></form>
+                <form th:action="@{/profiles/change-role/{id}(id=${user.id})}" th:method="PATCH"><button class="btn btn-success rounded-5">Change role to <span th:if="${user.role == 'USER'}">admin</span> <span th:if="${user.role == 'ADMIN'}">user</span></button></form>
             </div>
         </div>
         <div class="col-2"></div>

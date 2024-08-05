@@ -23,9 +23,9 @@ public class RegisterController {
     }
     @ModelAttribute("hasPasswordErrors")
     private boolean addHasPasswordErrorsValueToModel(){return false;}
-    @ModelAttribute("doUsernameExists")
+    @ModelAttribute("doesUsernameExists")
     private boolean addDoUsernameExistsValueToModel(){return false;}
-    @ModelAttribute("doEmailExists")
+    @ModelAttribute("doesEmailExists")
     private boolean addDoEmailExistsValueToModel(){return false;}
     @GetMapping("/register")
     public String viewRegister(){
@@ -44,10 +44,10 @@ public class RegisterController {
                 redirectAttributes.addFlashAttribute("hasPasswordErrors", true);
             }
             if(this.userService.doUsernameExists(registerData)){
-                redirectAttributes.addFlashAttribute("doUsernameExists", true);
+                redirectAttributes.addFlashAttribute("doesUsernameExists", true);
             }
             if(this.userService.doEmailExists(registerData)){
-                redirectAttributes.addFlashAttribute("doEmailExists", true);
+                redirectAttributes.addFlashAttribute("doesEmailExists", true);
             }
             return "redirect:/register";
         }

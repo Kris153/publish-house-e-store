@@ -39,13 +39,16 @@
                     <h3> <span th:text="${book.value}">2</span> x <span th:text="${#numbers.formatDecimal(book.key.price, 0, 2)}">30.00</span>лв.</h3>
                 </div>
             </div>
+            <div class="row" th:if="${order.promoCodeName != null}">
+                <h3>Promo code: "<span th:text="*{promoCodeName}">"code10"</span>" for <span th:text="*{promoCodeDiscountPercent}">10</span>% discount</h3>
+            </div>
             <div class="row">
                 <h3>Total: <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 2)}">90</span>лв.</h3>
             </div>
             <div class="row mt-2">
                 <h3>Status: <span th:text="*{status}">processing</span></h3>
             </div>
-            <div class="row mt-3" th:if="${!isCompleted}">
+            <div class="row mt-3" th:if="${order.status == 'PROCESSING'}">
                 <form th:action="@{/orders/change-status/{id}(id=${order.id})}" th:method="PATCH"><button class="btn btn-success rounded-5">Change status to completed</button></form>
             </div>
         </div>

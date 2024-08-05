@@ -19,17 +19,20 @@ public class CartEntity {
     private Double totalPrice;
     @OneToOne
     private UserEntity user;
+    @ManyToOne
+    private PromoCodeEntity promoCode;
 
     public CartEntity() {
         this.books = new ArrayList<>();
         this.totalPrice = 0d;
     }
 
-    public CartEntity(Integer id, List<BookEntity> books, Double totalPrice, UserEntity user) {
+    public CartEntity(Integer id, List<BookEntity> books, Double totalPrice, UserEntity user, PromoCodeEntity promoCode) {
         this.id = id;
         this.books = books;
         this.totalPrice = totalPrice;
         this.user = user;
+        this.promoCode = promoCode;
     }
 
     public Integer getId() {
@@ -68,6 +71,18 @@ public class CartEntity {
         for (BookEntity book : this.books) {
             price += book.getPrice();
         }
+        if(this.promoCode != null){
+            price = price*(1-(double)promoCode.getDiscountPercent()/100);
+        }
         this.setTotalPrice(price);
     }
+
+    public PromoCodeEntity getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(PromoCodeEntity promoCode) {
+        this.promoCode = promoCode;
+    }
+
 }

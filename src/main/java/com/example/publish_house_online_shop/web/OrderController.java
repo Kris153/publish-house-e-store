@@ -33,9 +33,7 @@ public class OrderController {
         if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
-        OrderDetailsDTO order = this.orderService.getOrderById(orderId);
-        model.addAttribute("order", order);
-        model.addAttribute("isCompleted", order.getStatus().equals("COMPLETED"));
+        model.addAttribute("order", this.orderService.getOrderById(orderId));
         return "order";
     }
     @PatchMapping("/orders/change-status/{id}")

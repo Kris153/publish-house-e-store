@@ -32,11 +32,11 @@ public class CartController {
 
     @GetMapping("/cart")
     public String viewCart(Model model){
-        CartDetailsDTO currentCart = this.userService.getCurrentCart();
-        if(currentCart.getBooksQuantitiesMap().isEmpty()){
+        if(this.userService.isCurrentCartEmpty()){
             return "redirect:/empty-cart";
         }
-        model.addAttribute("cart", currentCart);
+        this.userService.removePromoCode();
+        model.addAttribute("cart", this.userService.getCurrentCart());
         return "cart";
     }
     @GetMapping("/empty-cart")

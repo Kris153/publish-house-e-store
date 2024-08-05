@@ -3,6 +3,18 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::header"></header>
+<div th:if="${!doesPromoCodeExists}" class="alert alert-danger alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Sorry but this promo code does not exist!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${!isPromoCodeActive}" class="alert alert-danger alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Sorry but this promo code is not active!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulUsePromoCode}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    You successfully used promo code <span th:text="${promoCodeName}"></span> for <span th:text="${discountPercent}"></span>% discount!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
 <div class="container mt-5 mb-5">
     <div class="row text-center mb-5">
         <h1>Checkout</h1>
@@ -81,10 +93,11 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col">
-                    <form th:action="@{/checkout/promo-code}" th:method="POST">
+                    <form th:action="@{/checkout/promo-code}" th:method="POST" th:object="${promoCodeData}">
                         <div class="form-floating mt-3">
                             <input type="text" id="promo_code" class="form-control"
-                                   placeholder="Place promo code here">
+                                   placeholder="Place promo code here"
+                                   th:field="*{name}">
                             <label for="promo_code" class="form-label">Promo code</label>
                         </div>
                         <button class="btn btn-sm mt-2 mb-2 rounded-3"

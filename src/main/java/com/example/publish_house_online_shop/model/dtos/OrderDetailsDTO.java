@@ -25,10 +25,14 @@ public class OrderDetailsDTO {
 
     private String status;
 
+    private String promoCodeName;
+
+    private Integer promoCodeDiscountPercent;
+
     public OrderDetailsDTO() {
     }
 
-    public OrderDetailsDTO(Integer id, String username, String shippingName, String shippingEmail, String shippingPhoneNumber, String shippingAddress, Instant createdDateTime, Map<BookDetailsForCartDTO, Integer> booksQuantitiesMap, Double totalPrice, String status) {
+    public OrderDetailsDTO(Integer id, String username, String shippingName, String shippingEmail, String shippingPhoneNumber, String shippingAddress, Instant createdDateTime, Map<BookDetailsForCartDTO, Integer> booksQuantitiesMap, Double totalPrice, String status, String promoCodeName, Integer promoCodeDiscountPercent) {
         this.id = id;
         this.username = username;
         this.shippingName = shippingName;
@@ -39,6 +43,16 @@ public class OrderDetailsDTO {
         this.booksQuantitiesMap = booksQuantitiesMap;
         this.totalPrice = totalPrice;
         this.status = status;
+        this.promoCodeName = promoCodeName;
+        this.promoCodeDiscountPercent = promoCodeDiscountPercent;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -113,11 +127,19 @@ public class OrderDetailsDTO {
         this.status = status;
     }
 
-    public Integer getId() {
-        return id;
+    public String getPromoCodeName() {
+        return promoCodeName;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPromoCodeName(String promoCodeName) {
+        this.promoCodeName = promoCodeName;
+    }
+
+    public Integer getPromoCodeDiscountPercent() {
+        return promoCodeDiscountPercent;
+    }
+
+    public void setPromoCodeDiscountPercent(Integer promoCodeDiscountPercent) {
+        this.promoCodeDiscountPercent = promoCodeDiscountPercent;
     }
 }

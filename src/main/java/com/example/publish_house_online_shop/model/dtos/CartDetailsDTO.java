@@ -6,14 +6,15 @@ import java.util.Map;
 public class CartDetailsDTO {
     private Map<BookDetailsForCartDTO, Integer> booksQuantitiesMap;
     private Double totalPrice;
+    private String promoCodeName;
 
     public CartDetailsDTO() {
-        this.booksQuantitiesMap = new HashMap<>();
     }
 
-    public CartDetailsDTO(Map<BookDetailsForCartDTO, Integer> booksQuantitiesMap, Double totalPrice) {
+    public CartDetailsDTO(Map<BookDetailsForCartDTO, Integer> booksQuantitiesMap, Double totalPrice, String promoCodeName) {
         this.booksQuantitiesMap = booksQuantitiesMap;
         this.totalPrice = totalPrice;
+        this.promoCodeName = promoCodeName;
     }
 
     public Map<BookDetailsForCartDTO, Integer> getBooksQuantitiesMap() {
@@ -30,5 +31,13 @@ public class CartDetailsDTO {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getPromoCodeName() {
+        return promoCodeName;
+    }
+
+    public void setPromoCodeName(String promoCodeName) {
+        this.promoCodeName = promoCodeName;
     }
 }

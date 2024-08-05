@@ -27,6 +27,8 @@ public class AuthorController {
     private AddAuthorDTO addAddAuthorDTOToModel(){
         return new AddAuthorDTO();
     }
+    @ModelAttribute("doesAuthorExists")
+    private boolean addDoesAuthorExistsValueToModel(){return false;}
 
     @GetMapping("/authors/{name}")
     public String viewAuthor(@PathVariable("name") String authorName, Model model){
@@ -43,9 +45,12 @@ public class AuthorController {
     }
     @PostMapping("/add-author")
     public String addAuthor(@Valid AddAuthorDTO authorData, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors() || this.authorService.doesAuthorExists(authorData.getName())){
             redirectAttributes.addFlashAttribute("authorData", authorData);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.authorData", bindingResult);
+            if(this.authorService.doesAuthorExists(authorData.getName())){
+                redirectAttributes.addFlashAttribute("doesAuthorExists", true);
+            }
             return "redirect:/add-author";
         }
         this.authorService.addAuthor(authorData);

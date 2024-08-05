@@ -1,20 +1,30 @@
 package com.example.publish_house_online_shop.model.dtos;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+public class PromoCodeDetailsDTO {
+    private Integer id;
 
-public class AddPromoCodeDTO {
-    @NotBlank
     private String name;
-    @NotNull
+
     private Integer discountPercent;
 
-    public AddPromoCodeDTO() {
+    private String status;
+
+    public PromoCodeDetailsDTO() {
     }
 
-    public AddPromoCodeDTO(String name, Integer discountPercent) {
+    public PromoCodeDetailsDTO(Integer id, String name, Integer discountPercent, String status) {
+        this.id = id;
         this.name = name;
         this.discountPercent = discountPercent;
+        this.status = status;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,5 +41,13 @@ public class AddPromoCodeDTO {
 
     public void setDiscountPercent(Integer discountPercent) {
         this.discountPercent = discountPercent;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

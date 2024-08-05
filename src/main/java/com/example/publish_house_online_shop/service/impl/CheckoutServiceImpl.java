@@ -3,15 +3,9 @@ package com.example.publish_house_online_shop.service.impl;
 import com.example.publish_house_online_shop.model.dtos.AddOrderDTO;
 import com.example.publish_house_online_shop.model.dtos.BookDetailsForCartDTO;
 import com.example.publish_house_online_shop.model.dtos.CartDetailsDTO;
-import com.example.publish_house_online_shop.model.entities.BookEntity;
-import com.example.publish_house_online_shop.model.entities.CartEntity;
-import com.example.publish_house_online_shop.model.entities.OrderEntity;
-import com.example.publish_house_online_shop.model.entities.UserEntity;
+import com.example.publish_house_online_shop.model.entities.*;
 import com.example.publish_house_online_shop.model.enums.OrderStatusEnum;
-import com.example.publish_house_online_shop.repository.BookRepository;
-import com.example.publish_house_online_shop.repository.CartRepository;
-import com.example.publish_house_online_shop.repository.OrderRepository;
-import com.example.publish_house_online_shop.repository.UserRepository;
+import com.example.publish_house_online_shop.repository.*;
 import com.example.publish_house_online_shop.service.CheckoutService;
 import com.example.publish_house_online_shop.service.exception.BadRequestException;
 import org.modelmapper.ModelMapper;
@@ -30,13 +24,15 @@ public class CheckoutServiceImpl implements CheckoutService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     private final CartRepository cartRepository;
+    private final PromoCodeRepository promoCodeRepository;
     private final ModelMapper modelMapper;
 
-    public CheckoutServiceImpl(OrderRepository orderRepository, UserRepository userRepository, BookRepository bookRepository, CartRepository cartRepository, ModelMapper modelMapper) {
+    public CheckoutServiceImpl(OrderRepository orderRepository, UserRepository userRepository, BookRepository bookRepository, CartRepository cartRepository, PromoCodeRepository promoCodeRepository, ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.bookRepository = bookRepository;
         this.cartRepository = cartRepository;
+        this.promoCodeRepository = promoCodeRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -62,6 +58,15 @@ public class CheckoutServiceImpl implements CheckoutService {
             }
         }
         orderToAdd.setBooks(booksList);
+        if(currentCart.getPromoCodeName() == null){
+            orderToAdd.setPromoCode(null);
+        }else{
+            Optional<PromoCodeEntity> promoCodeOpt = this.promoCodeRepository.findByName(currentCart.getPromoCodeName());
+            if(promoCodeOpt.isEmpty()){
+                throw new BadRequestException();
+            }
+            orderToAdd.setPromoCode(promoCodeOpt.get());
+        }
         this.orderRepository.saveAndFlush(orderToAdd);
         Optional<CartEntity> cartOpt = this.cartRepository.findByUser(currentUser);
         if(cartOpt.isEmpty()){
@@ -69,6 +74,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         }
         CartEntity cart = cartOpt.get();
         cart.setBooks(new ArrayList<>());
+        cart.setPromoCode(null);
         cart.updateTotalPrice();
         this.cartRepository.saveAndFlush(cart);
     }

@@ -35,9 +35,7 @@ public class MessageController {
         if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
-        MessageDetailsDTO message = this.messageService.getMessageById(messageId);
-        model.addAttribute("message", message);
-        model.addAttribute("isStatusSeen", message.getStatus().equals("SEEN"));
+        model.addAttribute("message", this.messageService.getMessageById(messageId));
         return "message";
     }
     @PostMapping("/add-message")

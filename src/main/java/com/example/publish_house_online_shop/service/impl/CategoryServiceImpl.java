@@ -28,4 +28,14 @@ public class CategoryServiceImpl implements CategoryService {
         return this.bookRestClient.get().uri("/categories").accept(MediaType.APPLICATION_JSON).retrieve().body(new ParameterizedTypeReference<>() {
         });
     }
+
+    @Override
+    public boolean doesCategoryExists(String categoryName) {
+        for (CategoryDetailsDTO categoryDetailsDTO : getAllCategories()) {
+            if(categoryDetailsDTO.getName().equals(categoryName)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

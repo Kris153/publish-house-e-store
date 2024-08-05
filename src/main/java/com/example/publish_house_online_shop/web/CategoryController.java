@@ -27,6 +27,8 @@ public class CategoryController {
     private AddCategoryDTO addAddCategoryDTOToModel(){
         return new AddCategoryDTO();
     }
+    @ModelAttribute("doesCategoryExists")
+    private boolean addDoesCategoryExistsValueToModel(){return false;}
     @GetMapping("/add-category")
     public String viewAddCategory(){
         if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
@@ -37,9 +39,12 @@ public class CategoryController {
 
     @PostMapping("/add-category")
     public String addCategory(@Valid AddCategoryDTO categoryData, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors() || this.categoryService.doesCategoryExists(categoryData.getName())){
             redirectAttributes.addFlashAttribute("categoryData", categoryData);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.categoryData", bindingResult);
+            if(this.categoryService.doesCategoryExists(categoryData.getName())){
+                redirectAttributes.addFlashAttribute("doesCategoryExists", true);
+            }
             return "redirect:/add-category";
         }
         redirectAttributes.addFlashAttribute("successfulAddCategory", true);

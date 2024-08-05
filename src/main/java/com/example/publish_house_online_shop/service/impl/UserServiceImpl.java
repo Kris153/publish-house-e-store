@@ -1,15 +1,10 @@
 package com.example.publish_house_online_shop.service.impl;
 
-import com.example.publish_house_online_shop.model.dtos.BookDetailsForCartDTO;
-import com.example.publish_house_online_shop.model.dtos.CartDetailsDTO;
-import com.example.publish_house_online_shop.model.dtos.UserDetailsDTO;
-import com.example.publish_house_online_shop.model.dtos.UserRegisterDTO;
-import com.example.publish_house_online_shop.model.entities.BookEntity;
-import com.example.publish_house_online_shop.model.entities.CartEntity;
-import com.example.publish_house_online_shop.model.entities.UserEntity;
-import com.example.publish_house_online_shop.model.entities.UserRoleEntity;
+import com.example.publish_house_online_shop.model.dtos.*;
+import com.example.publish_house_online_shop.model.entities.*;
 import com.example.publish_house_online_shop.model.enums.UserRoleEnum;
 import com.example.publish_house_online_shop.repository.CartRepository;
+import com.example.publish_house_online_shop.repository.PromoCodeRepository;
 import com.example.publish_house_online_shop.repository.UserRepository;
 import com.example.publish_house_online_shop.repository.UserRoleRepository;
 import com.example.publish_house_online_shop.service.UserService;
@@ -26,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.FileNameMap;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,13 +32,15 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRoleRepository userRoleRepository;
     private final CartRepository cartRepository;
+    private final PromoCodeRepository promoCodeRepository;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository, CartRepository cartRepository) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository, CartRepository cartRepository, PromoCodeRepository promoCodeRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.userRoleRepository = userRoleRepository;
         this.cartRepository = cartRepository;
+        this.promoCodeRepository = promoCodeRepository;
     }
 
     @Override
@@ -117,12 +115,13 @@ public class UserServiceImpl implements UserService {
             List<UserRoleEntity> roleList = new ArrayList<>();
             roleList.add(this.userRoleRepository.findByRole(UserRoleEnum.USER).get());
             user.setRoles(roleList);
-
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-            Authentication newAuthentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials()
-                    , authorities);
-            SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+            if(getCurrentUser().getUsername().equals(user.getUsername())){
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+                Authentication newAuthentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials()
+                        , authorities);
+                SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+            }
         }
         this.userRepository.saveAndFlush(user);
         return true;
@@ -144,7 +143,47 @@ public class UserServiceImpl implements UserService {
             map.put(mapped, map.get(mapped) + 1);
         }
         toReturn.setBooksQuantitiesMap(map);
+        if(cart.getPromoCode() == null){
+            toReturn.setPromoCodeName(null);
+        }else{
+            toReturn.setPromoCodeName(cart.getPromoCode().getName());
+        }
         return toReturn;
+    }
+    @Transactional
+    @Override
+    public boolean isCurrentCartEmpty() {
+        return getCurrentCart().getBooksQuantitiesMap().isEmpty();
+    }
+    @Transactional
+    @Override
+    public void usePromoCode(UsePromoCodeDTO promoCodeData) {
+        Optional<PromoCodeEntity> promoCodeOpt = this.promoCodeRepository.findByName(promoCodeData.getName());
+        if(promoCodeOpt.isEmpty()){
+            throw new BadRequestException();
+        }
+        Optional<CartEntity> cartOpt = this.cartRepository.findByUser(this.getCurrentUser());
+        if(cartOpt.isEmpty()){
+            throw new BadRequestException();
+        }
+        CartEntity cart = cartOpt.get();
+        cart.setPromoCode(null);
+        cart.updateTotalPrice();
+        cart.setPromoCode(promoCodeOpt.get());
+        cart.updateTotalPrice();
+        this.cartRepository.saveAndFlush(cart);
+    }
+    @Transactional
+    @Override
+    public void removePromoCode() {
+        Optional<CartEntity> cartOpt = this.cartRepository.findByUser(this.getCurrentUser());
+        if(cartOpt.isEmpty()){
+            throw new BadRequestException();
+        }
+        CartEntity cart = cartOpt.get();
+        cart.setPromoCode(null);
+        cart.updateTotalPrice();
+        this.cartRepository.saveAndFlush(cart);
     }
 
     private static UserDetailsDTO map(UserEntity user){

@@ -10,4 +10,5 @@ public interface AuthorService {
     List<AuthorDetailsDTO> getAllAuthors();
 
     AuthorDetailsDTO getAuthorDetailsDTOByName(String authorName);
+    boolean doesAuthorExists(String authorName);
 }

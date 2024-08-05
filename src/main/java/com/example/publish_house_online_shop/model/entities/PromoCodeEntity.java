@@ -1,9 +1,10 @@
 package com.example.publish_house_online_shop.model.entities;
 
+import com.example.publish_house_online_shop.model.enums.PromoCodeStatusEnum;
 import jakarta.persistence.*;
 
-@Table
 @Entity
+@Table(name = "promo_codes")
 public class PromoCodeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,14 +13,18 @@ public class PromoCodeEntity {
     private String name;
     @Column(nullable = false)
     private Integer discountPercent;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PromoCodeStatusEnum status;
 
     public PromoCodeEntity() {
     }
 
-    public PromoCodeEntity(Integer id, String name, Integer discountPercent) {
+    public PromoCodeEntity(Integer id, String name, Integer discountPercent, PromoCodeStatusEnum status) {
         this.id = id;
         this.name = name;
         this.discountPercent = discountPercent;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -44,5 +49,13 @@ public class PromoCodeEntity {
 
     public void setDiscountPercent(Integer discountPercent) {
         this.discountPercent = discountPercent;
+    }
+
+    public PromoCodeStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(PromoCodeStatusEnum status) {
+        this.status = status;
     }
 }

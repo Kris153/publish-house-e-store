@@ -16,7 +16,7 @@
             <div class="row mt-3">
                 <h3>Message: <span th:text="${message.text}">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam modi nam repudiandae aut eveniet dolore mollitia odio sint aperiam, ex ut saepe corrupti impedit dignissimos assumenda beatae ea excepturi similique id. Autem ipsam deserunt, sit cum ipsa voluptatem aspernatur maiores culpa laboriosam eos consequuntur corrupti atque doloribus voluptatibus facilis officia in esse veniam ut sed aut asperiores cupiditate voluptates! Dolorum optio similique quasi, harum, aliquam pariatur animi, sequi quae magni dolorem beatae delectus. Sequi impedit adipisci excepturi labore eum quos tempora maxime ex cum quis sunt non, ullam numquam iusto esse temporibus sapiente dolores delectus laudantium necessitatibus voluptatum molestiae. Inventore?</span></h3>
             </div>
-            <div class="row mt-5" th:if="${!isStatusSeen}">
+            <div class="row mt-5" th:if="${message.status == 'NOT_SEEN'}">
                 <form th:action="@{/messages/change-status/{id}(id=${message.id})}" th:method="PATCH"><button class="btn btn-success rounded-5">Change status to seen</button></form>
             </div>
         </div>

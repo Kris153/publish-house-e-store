@@ -5,8 +5,10 @@ import com.example.publish_house_online_shop.model.dtos.AuthorDetailsDTO;
 import com.example.publish_house_online_shop.model.dtos.BookDetailsDTO;
 import com.example.publish_house_online_shop.service.AuthorService;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
@@ -38,5 +40,14 @@ public class AuthorServiceImpl implements AuthorService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(AuthorDetailsDTO.class);
+    }
+
+    @Override
+    public boolean doesAuthorExists(String authorName) {
+        try {
+            return getAuthorDetailsDTOByName(authorName) != null;
+        }catch (HttpClientErrorException.NotFound e){
+            return false;
+        }
     }
 }

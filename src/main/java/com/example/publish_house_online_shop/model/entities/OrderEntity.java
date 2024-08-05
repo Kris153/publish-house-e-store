@@ -33,11 +33,13 @@ public class OrderEntity {
     private Double totalPrice;
     @Column(nullable = false, name = "created_date_time")
     private Instant createdDateTime;
+    @ManyToOne
+    private PromoCodeEntity promoCode;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(Integer id, UserEntity user, OrderStatusEnum status, String shippingName, String shippingEmail, String shippingPhoneNumber, String shippingAddress, List<BookEntity> books, Double totalPrice, Instant createdDateTime) {
+    public OrderEntity(Integer id, UserEntity user, OrderStatusEnum status, String shippingName, String shippingEmail, String shippingPhoneNumber, String shippingAddress, List<BookEntity> books, Double totalPrice, Instant createdDateTime, PromoCodeEntity promoCode) {
         this.id = id;
         this.user = user;
         this.status = status;
@@ -48,6 +50,7 @@ public class OrderEntity {
         this.books = books;
         this.totalPrice = totalPrice;
         this.createdDateTime = createdDateTime;
+        this.promoCode = promoCode;
     }
 
     public Integer getId() {
@@ -128,5 +131,13 @@ public class OrderEntity {
 
     public void setCreatedDateTime(Instant createdDateTime) {
         this.createdDateTime = createdDateTime;
+    }
+
+    public PromoCodeEntity getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(PromoCodeEntity promoCode) {
+        this.promoCode = promoCode;
     }
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface CategoryService {
     void addCategory(AddCategoryDTO addCategoryDTO);
     List<CategoryDetailsDTO> getAllCategories();
+    boolean doesCategoryExists(String categoryName);
 }

@@ -34,9 +34,7 @@ public class ProfileController {
         if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
-        UserDetailsDTO user = this.userService.getUserById(userId);
-        model.addAttribute("user", user);
-        model.addAttribute("isAdmin", user.getRole().equals("ADMIN"));
+        model.addAttribute("user", this.userService.getUserById(userId));
         return "profile";
     }
     @PatchMapping("/profiles/change-role/{id}")
