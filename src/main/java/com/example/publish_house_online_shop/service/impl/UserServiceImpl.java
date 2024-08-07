@@ -49,11 +49,23 @@ public class UserServiceImpl implements UserService {
         UserEntity userToAdd = this.modelMapper.map(registerData, UserEntity.class);
         userToAdd.setPassword(this.passwordEncoder.encode(userToAdd.getPassword()));
         userToAdd.setRoles(List.of(this.userRoleRepository.findByRole(UserRoleEnum.USER).get()));
+        userToAdd.setOrders(new ArrayList<>());
         this.userRepository.saveAndFlush(userToAdd);
         CartEntity cartToAdd = new CartEntity();
         cartToAdd.setUser(this.userRepository.findByUsername(registerData.getUsername()).get());
         cartToAdd.setLastModified(Instant.now());
         this.cartRepository.saveAndFlush(cartToAdd);
+//        Optional<UserEntity> userOpt = this.userRepository.findByUsername(registerData.getUsername());
+//        if(userOpt.isEmpty()){
+//            throw new BadRequestException();
+//        }
+//        UserEntity user = userOpt.get();
+//        Optional<CartEntity> cartOpt = this.cartRepository.findByUser(user);
+//        if(cartOpt.isEmpty()){
+//            throw new BadRequestException();
+//        }
+//        user.setCart(cartOpt.get());
+//        this.userRepository.saveAndFlush(user);
     }
 
     @Override
@@ -117,12 +129,14 @@ public class UserServiceImpl implements UserService {
             List<UserRoleEntity> roleList = new ArrayList<>();
             roleList.add(this.userRoleRepository.findByRole(UserRoleEnum.USER).get());
             user.setRoles(roleList);
-            if(getCurrentUser().getUsername().equals(user.getUsername())){
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-                Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-                Authentication newAuthentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials()
-                        , authorities);
-                SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+            if(getCurrentUser() != null){
+                if(user.getUsername().equals(getCurrentUser().getUsername())){
+                    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                    Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+                    Authentication newAuthentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials()
+                            , authorities);
+                    SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+                }
             }
         }
         this.userRepository.saveAndFlush(user);

@@ -56,6 +56,15 @@ public class UserEntity {
         this.cart = cart;
     }
 
+    public UserEntity(String username, String email, String password, List<UserRoleEntity> roles, List<OrderEntity> orders, CartEntity cart) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.orders = orders;
+        this.cart = cart;
+    }
+
     public List<OrderEntity> getOrders() {
         return orders;
     }
