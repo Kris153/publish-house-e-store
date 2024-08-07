@@ -4,11 +4,11 @@ import com.example.publish_house_online_shop.model.dtos.OrderDetailsDTO;
 import com.example.publish_house_online_shop.model.enums.UserRoleEnum;
 import com.example.publish_house_online_shop.service.OrderService;
 import com.example.publish_house_online_shop.service.UserService;
+import com.example.publish_house_online_shop.service.exception.ObjectNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class OrderController {
@@ -46,7 +46,12 @@ public class OrderController {
         if(this.userService.getCurrentUser().getRoles().get(0).getRole().equals(UserRoleEnum.USER)){
             return "redirect:/";
         }
-        model.addAttribute("orders", this.orderService.getAllOrderByUserId(userId));
+        model.addAttribute("orders", this.orderService.getAllOrdersByUserId(userId));
         return "orders";
+    }
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public String handleObjectNotFound(){
+        return "order-not-found";
     }
 }

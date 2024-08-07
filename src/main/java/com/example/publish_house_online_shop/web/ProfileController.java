@@ -3,12 +3,11 @@ package com.example.publish_house_online_shop.web;
 import com.example.publish_house_online_shop.model.dtos.UserDetailsDTO;
 import com.example.publish_house_online_shop.model.enums.UserRoleEnum;
 import com.example.publish_house_online_shop.service.UserService;
+import com.example.publish_house_online_shop.service.exception.ObjectNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -43,5 +42,10 @@ public class ProfileController {
             redirectAttributes.addFlashAttribute("cantChangeRole", true);
         }
         return "redirect:/profiles/{id}";
+    }
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public String handleObjectNotFound(){
+        return "profile-not-found";
     }
 }

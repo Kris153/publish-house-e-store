@@ -10,7 +10,7 @@
         <div class="col-4"></div>
         <div class="col-4">
             <h2 class="text-white mt-3 text-center">Add book</h2>
-            <form th:method="POST" th:action="@{/add-book}" th:object="${bookData}">
+            <form th:method="POST" th:action="@{/books/add-book}" th:object="${bookData}">
                 <div class="form-floating mt-3">
                     <input type="text" id="title" class="form-control"
                            placeholder="Place title  here"

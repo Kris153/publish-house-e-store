@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<div class="bg-image p-5 text-center shadow-5-strong vh-100"
+     style="background-image: url(/images/HomePageImg.jpg);">
+    <div class="container">
+        <div class="row mt-5"></div>
+        <div class="row mt-5"></div>
+        <div class="row mt-5"></div>
+        <div class="row mt-5"></div>
+        <div class="row mt-5"></div>
+        <div class="row mt-5"></div>
+        <div class="row mt-5">
+            <div class="col-4"></div>
+            <div class="col-4 text-center">
+                <h1 class="text-center text-white">Sorry but this book does not exist! Please navigate to
+                    <a class="text-info link-underline link-underline-opacity-0" th:href="@{/}">home page</a>
+                </h1>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

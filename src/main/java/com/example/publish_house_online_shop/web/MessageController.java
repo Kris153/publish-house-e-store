@@ -5,7 +5,9 @@ import com.example.publish_house_online_shop.model.dtos.MessageDetailsDTO;
 import com.example.publish_house_online_shop.model.enums.UserRoleEnum;
 import com.example.publish_house_online_shop.service.MessageService;
 import com.example.publish_house_online_shop.service.UserService;
+import com.example.publish_house_online_shop.service.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,5 +55,10 @@ public class MessageController {
     public String changeMessageStatusToSeen(@PathVariable("id") Integer messageId){
         this.messageService.changeMessageStatusToSeenById(messageId);
         return "redirect:/messages/{id}";
+    }
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public String handleObjectNotFound(){
+        return "message-not-found";
     }
 }

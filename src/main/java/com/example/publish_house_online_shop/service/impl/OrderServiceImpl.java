@@ -10,6 +10,7 @@ import com.example.publish_house_online_shop.repository.OrderRepository;
 import com.example.publish_house_online_shop.repository.UserRepository;
 import com.example.publish_house_online_shop.service.OrderService;
 import com.example.publish_house_online_shop.service.exception.BadRequestException;
+import com.example.publish_house_online_shop.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,11 +49,11 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public OrderDetailsDTO getOrderById(Integer orderId) {
-        return getAllOrders().stream().filter(o -> o.getId().equals(orderId)).findFirst().orElseThrow();
+        return getAllOrders().stream().filter(o -> o.getId().equals(orderId)).findFirst().orElseThrow(ObjectNotFoundException::new);
     }
     @Transactional
     @Override
-    public List<OrderDetailsDTO> getAllOrderByUserId(Integer userId) {
+    public List<OrderDetailsDTO> getAllOrdersByUserId(Integer userId) {
         Optional<UserEntity> userOpt = this.userRepository.findById(userId);
         if(userOpt.isEmpty()){
             throw new BadRequestException();

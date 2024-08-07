@@ -4,14 +4,15 @@ import com.example.publish_house_online_shop.model.dtos.AddAuthorDTO;
 import com.example.publish_house_online_shop.model.enums.UserRoleEnum;
 import com.example.publish_house_online_shop.service.AuthorService;
 import com.example.publish_house_online_shop.service.UserService;
+import com.example.publish_house_online_shop.service.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -56,5 +57,11 @@ public class AuthorController {
         this.authorService.addAuthor(authorData);
         redirectAttributes.addFlashAttribute("successfulAddAuthor", true);
         return "redirect:/";
+    }
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(HttpClientErrorException.NotFound.class)
+    public ModelAndView handleObjectNotFound() {
+        ModelAndView modelAndView = new ModelAndView("author-not-found");
+        return modelAndView;
     }
 }
