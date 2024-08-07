@@ -2,6 +2,7 @@ package com.example.publish_house_online_shop.model.entities;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,18 +22,21 @@ public class CartEntity {
     private UserEntity user;
     @ManyToOne
     private PromoCodeEntity promoCode;
+    @Column(name = "last_modified", nullable = false)
+    private Instant lastModified;
 
     public CartEntity() {
         this.books = new ArrayList<>();
         this.totalPrice = 0d;
     }
 
-    public CartEntity(Integer id, List<BookEntity> books, Double totalPrice, UserEntity user, PromoCodeEntity promoCode) {
+    public CartEntity(Integer id, List<BookEntity> books, Double totalPrice, UserEntity user, PromoCodeEntity promoCode, Instant lastModified) {
         this.id = id;
         this.books = books;
         this.totalPrice = totalPrice;
         this.user = user;
         this.promoCode = promoCode;
+        this.lastModified = lastModified;
     }
 
     public Integer getId() {
@@ -85,4 +89,18 @@ public class CartEntity {
         this.promoCode = promoCode;
     }
 
+    public Instant getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Instant lastModified) {
+        this.lastModified = lastModified;
+    }
+    public boolean isEmpty(){
+        return this.books.isEmpty();
+    }
+    public void clearCart(){
+        this.books.clear();
+        this.totalPrice = 0d;
+    }
 }

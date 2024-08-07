@@ -10,6 +10,7 @@ import com.example.publish_house_online_shop.service.exception.BadRequestExcepti
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,7 @@ public class CartServiceImpl implements CartService {
         books.add(bookOpt.get());
         cart.setBooks(books);
         cart.updateTotalPrice();
+        cart.setLastModified(Instant.now());
         this.cartRepository.saveAndFlush(cart);
     }
     @Transactional
@@ -56,6 +58,7 @@ public class CartServiceImpl implements CartService {
         books.remove(bookOpt.get());
         cart.setBooks(books);
         cart.updateTotalPrice();
+        cart.setLastModified(Instant.now());
         this.cartRepository.saveAndFlush(cart);
     }
 }

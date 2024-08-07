@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class InitAdminAndRoles implements CommandLineRunner {
             CartEntity cartToAdd = new CartEntity();
             UserEntity adminUser = this.userRepository.findById(1).get();
             cartToAdd.setUser(adminUser);
+            cartToAdd.setLastModified(Instant.now());
             this.cartRepository.saveAndFlush(cartToAdd);
 
         }

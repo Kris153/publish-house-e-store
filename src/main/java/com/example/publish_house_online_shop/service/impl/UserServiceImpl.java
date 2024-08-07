@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.net.FileNameMap;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository.saveAndFlush(userToAdd);
         CartEntity cartToAdd = new CartEntity();
         cartToAdd.setUser(this.userRepository.findByUsername(registerData.getUsername()).get());
+        cartToAdd.setLastModified(Instant.now());
         this.cartRepository.saveAndFlush(cartToAdd);
     }
 
@@ -148,6 +150,8 @@ public class UserServiceImpl implements UserService {
         }else{
             toReturn.setPromoCodeName(cart.getPromoCode().getName());
         }
+        cart.setLastModified(Instant.now());
+        this.cartRepository.saveAndFlush(cart);
         return toReturn;
     }
     @Transactional
