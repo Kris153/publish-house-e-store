@@ -59,13 +59,15 @@ public class CheckoutServiceImpl implements CheckoutService {
         }
         orderToAdd.setBooks(booksList);
         if(currentCart.getPromoCodeName() == null){
-            orderToAdd.setPromoCode(null);
+            orderToAdd.setPromoCodeName(null);
+            orderToAdd.setPromoCodeDiscountPercent(null);
         }else{
             Optional<PromoCodeEntity> promoCodeOpt = this.promoCodeRepository.findByName(currentCart.getPromoCodeName());
             if(promoCodeOpt.isEmpty()){
                 throw new BadRequestException();
             }
-            orderToAdd.setPromoCode(promoCodeOpt.get());
+            orderToAdd.setPromoCodeName(promoCodeOpt.get().getName());
+            orderToAdd.setPromoCodeDiscountPercent(promoCodeOpt.get().getDiscountPercent());
         }
         this.orderRepository.saveAndFlush(orderToAdd);
         Optional<CartEntity> cartOpt = this.cartRepository.findByUser(currentUser);

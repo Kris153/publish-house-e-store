@@ -33,13 +33,15 @@ public class OrderEntity {
     private Double totalPrice;
     @Column(nullable = false, name = "created_date_time")
     private Instant createdDateTime;
-    @ManyToOne
-    private PromoCodeEntity promoCode;
+    @Column
+    private String promoCodeName;
+    @Column
+    private Integer promoCodeDiscountPercent;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(Integer id, UserEntity user, OrderStatusEnum status, String shippingName, String shippingEmail, String shippingPhoneNumber, String shippingAddress, List<BookEntity> books, Double totalPrice, Instant createdDateTime, PromoCodeEntity promoCode) {
+    public OrderEntity(Integer id, UserEntity user, OrderStatusEnum status, String shippingName, String shippingEmail, String shippingPhoneNumber, String shippingAddress, List<BookEntity> books, Double totalPrice, Instant createdDateTime, String promoCodeName, Integer promoCodeDiscountPercent) {
         this.id = id;
         this.user = user;
         this.status = status;
@@ -50,7 +52,8 @@ public class OrderEntity {
         this.books = books;
         this.totalPrice = totalPrice;
         this.createdDateTime = createdDateTime;
-        this.promoCode = promoCode;
+        this.promoCodeName = promoCodeName;
+        this.promoCodeDiscountPercent = promoCodeDiscountPercent;
     }
 
     public Integer getId() {
@@ -133,11 +136,19 @@ public class OrderEntity {
         this.createdDateTime = createdDateTime;
     }
 
-    public PromoCodeEntity getPromoCode() {
-        return promoCode;
+    public String getPromoCodeName() {
+        return promoCodeName;
     }
 
-    public void setPromoCode(PromoCodeEntity promoCode) {
-        this.promoCode = promoCode;
+    public void setPromoCodeName(String promoCodeName) {
+        this.promoCodeName = promoCodeName;
+    }
+
+    public Integer getPromoCodeDiscountPercent() {
+        return promoCodeDiscountPercent;
+    }
+
+    public void setPromoCodeDiscountPercent(Integer promoCodeDiscountPercent) {
+        this.promoCodeDiscountPercent = promoCodeDiscountPercent;
     }
 }

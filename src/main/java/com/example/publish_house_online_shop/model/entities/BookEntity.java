@@ -12,14 +12,17 @@ public class BookEntity {
     private String title;
     @Column(nullable = false)
     private Double price;
+    @Column(nullable = false)
+    private boolean isDeleted;
 
     public BookEntity() {
     }
 
-    public BookEntity(Integer id, String title, Double price) {
+    public BookEntity(Integer id, String title, Double price, boolean isDeleted) {
         this.id = id;
         this.title = title;
         this.price = price;
+        this.isDeleted = isDeleted;
     }
 
     public Integer getId() {
@@ -44,5 +47,13 @@ public class BookEntity {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

@@ -73,12 +73,12 @@ public class OrderServiceImpl implements OrderService {
             booksQuantityMap.put(mapped, booksQuantityMap.get(mapped) + 1);
         }
         toReturn.setBooksQuantitiesMap(booksQuantityMap);
-        if(order.getPromoCode() == null){
-            toReturn.setPromoCodeName(null);
-            toReturn.setPromoCodeDiscountPercent(null);
-        }else{
-            toReturn.setPromoCodeName(order.getPromoCode().getName());
-        }
+//        if(order.getPromoCodeName() == null){
+//            toReturn.setPromoCodeName(null);
+//            toReturn.setPromoCodeDiscountPercent(null);
+//        }else{
+//            toReturn.setPromoCodeName(order.getPromoCodeName());
+//        }
         return toReturn;
     }
 }
