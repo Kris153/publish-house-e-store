@@ -3,13 +3,18 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::header"></header>
-<div th:if="${successfulDeleteBook}" class="alert alert-warning alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${successfulDeleteBook} and ${#locale.toString()} == 'en_US'" class="alert alert-warning alert-dismissible text-center mb-0 rounded-0" role="alert">
     Congratulations! You successfully deleted a book!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulDeleteBook} and ${#locale.toString()} == 'bg_BG'" class="alert alert-warning alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Поздравления! Вие успешно изтрихте книга!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
 <div class="container mt-5 mb-5">
     <div class="row text-center mb-5">
-        <h1>All books</h1>
+        <h1 th:if="${#locale.toString()} == 'en_US'">All books</h1>
+        <h1 th:if="${#locale.toString()} == 'bg_BG'">Всички книги</h1>
     </div>
     <div class="row text-center mb-3" th:each="book:${books}">
         <div class="col-2"></div>
@@ -19,7 +24,7 @@
                     <h3 class="pt-3 pb-3" th:text="${book.title}">Title</h3>
                 </div>
                 <div class="col text-end">
-                    <form class="pt-3 pb-3 pe-3" th:action="@{/books/{id}(id = ${book.id})}" th:method="DELETE"><button class="btn btn-danger rounded-5">Delete book</button></form>
+                    <form class="pt-3 pb-3 pe-3" th:action="@{/books/{id}(id = ${book.id})}" th:method="DELETE"><button class="btn btn-danger rounded-5" th:text="#{delete_book}">Delete book</button></form>
                 </div>
             </div>
         </div>
@@ -27,7 +32,7 @@
     </div>
 
     <div class="row text-center mt-5">
-        <form th:action="@{/books/add-book}" th:method="GET"><button type="submit" class="btn btn-dark rounded-5">Add book</button></form>
+        <form th:action="@{/books/add-book}" th:method="GET"><button type="submit" class="btn btn-dark rounded-5" th:text="#{add_book}">Add book</button></form>
     </div>
     <div class="row mt-5 mb-5"></div>
     <div class="row mt-5 mb-5"></div>

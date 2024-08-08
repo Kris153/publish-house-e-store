@@ -15,19 +15,22 @@
                     <input type="text" id="username" class="form-control"
                            placeholder="Place username here"
                     th:field="*{username}" name="username">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label" th:text="#{username}">Username</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="password" class="form-control"
                            placeholder="Place message  here"
                     th:field="*{password}" name="password">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label" th:text="#{password}">Password</label>
                 </div>
-                <p th:if="${hasErrors}" class="errors alert alert-danger mt-3">
+                <p th:if="${hasErrors} and ${#locale.toString()} == 'en_US'" class="errors alert alert-danger mt-3">
                     Invalid username or password.
                 </p>
+                <p th:if="${hasErrors} and ${#locale.toString()} == 'bg_BG'" class="errors alert alert-danger mt-3">
+                    Невалидни потребителско име или парола.
+                </p>
                 <div class="text-center">
-                    <button type="submit" class="mt-3 btn btn-success mb-3">Login</button>
+                    <button type="submit" class="mt-3 btn btn-success mb-3" th:text="#{nav_bar_login}">Login</button>
                 </div>
             </form>
         </div>

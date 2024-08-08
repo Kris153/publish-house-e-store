@@ -3,8 +3,12 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::header"></header>
-<div th:if="${cantChangeRole}" class="alert alert-warning alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${cantChangeRole} and ${#locale.toString()} == 'en_US'" class="alert alert-warning alert-dismissible text-center mb-0 rounded-0" role="alert">
     You can not change the role of Admin user!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${cantChangeRole} and ${#locale.toString()} == 'bg_BG'" class="alert alert-warning alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Не може да сменяте ролята на Admin потребителя.
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
 <div class="container mt-5 mb-5">
@@ -15,16 +19,16 @@
                 <h2>Username: <span th:text="${user.username}">Username</span></h2>
             </div>
             <div class="row">
-                <h3>Email: <span th:text="${user.email}">exaple@email.com</span></h3>
+                <h3><span th:text="#{email}">Email</span>: <span th:text="${user.email}">exaple@email.com</span></h3>
             </div>
             <div class="row mt-2">
-                <form th:action="@{/orders/user/{id}(id=${user.id})}" th:method="GET"><button class="btn btn-secondary rounded-5">Orders</button></form>
+                <form th:action="@{/orders/user/{id}(id=${user.id})}" th:method="GET"><button class="btn btn-secondary rounded-5" th:text="#{orders}">Orders</button></form>
             </div>
             <div class="row mt-2">
-                <h3>Role: <span th:text="${user.role}">User</span></h3>
+                <h3> <span th:text="#{role}">Role</span>: <span th:text="${user.role}">User</span></h3>
             </div>
             <div class="row mt-2">
-                <form th:action="@{/profiles/change-role/{id}(id=${user.id})}" th:method="PATCH"><button class="btn btn-success rounded-5">Change role to <span th:if="${user.role == 'USER'}">admin</span> <span th:if="${user.role == 'ADMIN'}">user</span></button></form>
+                <form th:action="@{/profiles/change-role/{id}(id=${user.id})}" th:method="PATCH"><button class="btn btn-success rounded-5"> <span th:text="#{change_role_to}">Change role to</span> <span th:if="${user.role == 'USER'}">admin</span> <span th:if="${user.role == 'ADMIN'}">user</span></button></form>
             </div>
         </div>
         <div class="col-2"></div>

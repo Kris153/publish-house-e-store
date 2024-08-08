@@ -17,10 +17,13 @@
                            th:field="*{username}"
                            th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('username')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label" th:text="#{username}">Username</label>
                 </div>
-                <p th:if="${doesUsernameExists}" class="errors alert alert-danger mt-3">
+                <p th:if="${doesUsernameExists} and ${#locale.toString()} == 'en_US'" class="errors alert alert-danger mt-3">
                     This username exists. Try again with another one.
+                </p>
+                <p th:if="${doesUsernameExists} and ${#locale.toString()} == 'bg_BG'" class="errors alert alert-danger mt-3">
+                    Това потребителско име е заето. Пробвайте отново с друго потребителско име
                 </p>
                 <div class="form-floating mt-3">
                     <input type="email" id="email" class="form-control"
@@ -28,10 +31,13 @@
                            th:field="*{email}"
                            th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('email')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label" th:text="#{email}">Email</label>
                 </div>
-                <p th:if="${doesEmailExists}" class="errors alert alert-danger mt-3">
+                <p th:if="${doesEmailExists} and ${#locale.toString()} == 'en_US'" class="errors alert alert-danger mt-3">
                     This email exists. Try again with another one.
+                </p>
+                <p th:if="${doesEmailExists} and ${#locale.toString()} == 'bg_BG'" class="errors alert alert-danger mt-3">
+                    Този имейл е зает. Пробвайте отново с друг имейл.
                 </p>
                 <div class="form-floating mt-3">
                     <input type="text" id="password" class="form-control"
@@ -39,7 +45,7 @@
                            th:field="*{password}"
                            th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('password')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label" th:text="#{password}">Password</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="confirm_password" class="form-control"
@@ -47,13 +53,16 @@
                            th:field="*{confirmPassword}"
                            th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('confirmPassword')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="confirm_password" class="form-label">Confirm password</label>
+                    <label for="confirm_password" class="form-label" th:text="#{confirm_password}">Confirm password</label>
                 </div>
-                <p th:if="${hasPasswordErrors}" class="errors alert alert-danger mt-3">
+                <p th:if="${hasPasswordErrors} and ${#locale.toString()} == 'en_US'" class="errors alert alert-danger mt-3">
                     Password and confirm password are not the same.
                 </p>
+                <p th:if="${hasPasswordErrors} and ${#locale.toString()} == 'bg_BG'" class="errors alert alert-danger mt-3">
+                    Паролата и паролата за потвърждение не съвпадат. Опитайте отново.
+                </p>
                 <div class="text-center">
-                    <button class="mt-3 btn btn-success mb-3">Register</button>
+                    <button class="mt-3 btn btn-success mb-3" th:text="#{nav_bar_register}">Register</button>
                 </div>
             </form>
         </div>

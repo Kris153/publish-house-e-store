@@ -5,7 +5,8 @@
 <header th:replace="fragments/commons::header"></header>
 <div class="container mt-5 mb-5">
     <div class="row text-center mb-5">
-        <h1>All messages</h1>
+        <h1 th:if="${#locale.toString()} == 'en_US'">All messages</h1>
+        <h1 th:if="${#locale.toString()} == 'bg_BG'">Всички съобщения</h1>
     </div>
     <div class="row text-center mb-3" th:each="message:${messages}">
         <div class="col-2"></div>
@@ -18,7 +19,7 @@
                     <h5 class="pt-4 pb-3">Status: <span th:text="${message.status}">Seen</span></h5>
                 </div>
                 <div class="col text-end">
-                    <form class="pt-3 pb-3 pe-3" th:action="@{/messages/{id}(id=${message.id})}" th:method="GET"><button class="btn btn-info rounded-5">See more</button></form>
+                    <form class="pt-3 pb-3 pe-3" th:action="@{/messages/{id}(id=${message.id})}" th:method="GET"><button class="btn btn-info rounded-5" th:text="#{see_more}">See more</button></form>
                 </div>
             </div>
         </div>

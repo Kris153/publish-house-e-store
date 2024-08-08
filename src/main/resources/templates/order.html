@@ -8,28 +8,28 @@
         <div class="col-2"></div>
         <div class="col bg-warning p-4 bg-opacity-25 rounded-5" th:object="${order}">
             <div class="row mb-2">
-                <h2>User: <span th:text="*{username}">username</span></h2>
+                <h2><span th:text="#{user}">User</span>: <span th:text="*{username}">username</span></h2>
             </div>
             <div class="row">
-                <h2>Shipping info: </h2>
+                <h2><span th:text="#{shipping_info}">Shipping info</span>:</h2>
             </div>
             <div class="row">
-                <h4>Name: <span th:text="*{shippingName}">Name</span></h4>
+                <h4><span th:text="#{name}">Name</span>: <span th:text="*{shippingName}">Name</span></h4>
             </div>
             <div class="row">
-                <h4>Email: <span th:text="*{shippingEmail}">exaple@email.com</span></h4>
+                <h4><span th:text="#{email}">Email</span>: <span th:text="*{shippingEmail}">exaple@email.com</span></h4>
             </div>
             <div class="row">
-                <h4>Address: <span th:text="*{shippingAddress}">3905 Hillside Street</span></h4>
+                <h4><span th:text="#{address}">Address</span>: <span th:text="*{shippingAddress}">3905 Hillside Street</span></h4>
             </div>
             <div class="row">
-                <h4>Phone number: <span th:text="*{shippingPhoneNumber}">0855555555</span></h4>
+                <h4><span th:text="#{phone_number}">Phone number</span>: <span th:text="*{shippingPhoneNumber}">0855555555</span></h4>
             </div>
             <div class="row mt-2">
-                <h2>Date created: <span th:text="${#temporals.format(order.createdDateTime, 'dd-MM-yyyy HH:mm:ss')}">26.07.2024</span></h2>
+                <h2><span th:text="#{date_created}">Date created</span>: <span th:text="${#temporals.format(order.createdDateTime, 'dd-MM-yyyy HH:mm:ss')}">26.07.2024</span></h2>
             </div>
             <div class="row mt-2">
-                <h2>Books:</h2>
+                <h2><span th:text="#{books}">Books</span>:</h2>
             </div>
             <div class="row border border-white border-3 rounded-pill mb-3" th:each="book:*{booksQuantitiesMap}">
                 <div class="col">
@@ -40,16 +40,16 @@
                 </div>
             </div>
             <div class="row" th:if="${order.promoCodeName != null}">
-                <h3>Promo code: "<span th:text="*{promoCodeName}">"code10"</span>" for <span th:text="*{promoCodeDiscountPercent}">10</span>% discount</h3>
+                <h3><span th:text="#{promo_code}">Promo code</span>: "<span th:text="*{promoCodeName}">"code10"</span>" <span th:text="#{for}">for</span>  <span th:text="*{promoCodeDiscountPercent}">10</span>% <span th:text="#{discount}">discount</span></h3>
             </div>
             <div class="row">
-                <h3>Total: <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 2)}">90</span>лв.</h3>
+                <h3><span th:text="#{total}">Total</span>: <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 2)}">90</span>лв.</h3>
             </div>
             <div class="row mt-2">
-                <h3>Status: <span th:text="*{status}">processing</span></h3>
+                <h3><span th:text="#{status}">Status</span>: <span th:text="*{status}">processing</span></h3>
             </div>
             <div class="row mt-3" th:if="${order.status == 'PROCESSING'}">
-                <form th:action="@{/orders/change-status/{id}(id=${order.id})}" th:method="PATCH"><button class="btn btn-success rounded-5">Change status to completed</button></form>
+                <form th:action="@{/orders/change-status/{id}(id=${order.id})}" th:method="PATCH"><button class="btn btn-success rounded-5"><span th:text="#{change_status_to}">Change status to</span> completed</button></form>
             </div>
         </div>
         <div class="col-2"></div>

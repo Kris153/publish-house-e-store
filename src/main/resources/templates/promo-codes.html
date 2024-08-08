@@ -3,37 +3,34 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::header"></header>
-<div th:if="${successfulDeleteBook}" class="alert alert-warning alert-dismissible text-center mb-0 rounded-0" role="alert">
-  Congratulations! You successfully deleted a book!
-  <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
-</div>
 <div class="container mt-5 mb-5">
   <div class="row text-center mb-5">
-    <h1>All promo codes</h1>
+    <h1 th:if="${#locale.toString()} == 'en_US'">All promo codes</h1>
+    <h1 th:if="${#locale.toString()} == 'bg_BG'">Всички промо кодове</h1>
   </div>
   <div class="row text-center mb-3" th:each="promoCode:${promoCodes}">
     <div class="col-1"></div>
     <div class="col">
       <div class="row border border-3 rounded-pill">
         <div class="col">
-          <h3 class="pt-3 pb-3">Name: <span th:text="${promoCode.name}"></span></h3>
+          <h3 class="pt-3 pb-3"> <span th:text="#{name}">Name</span>: <span th:text="${promoCode.name}"></span></h3>
         </div>
         <div class="col">
-          <h3 class="pt-3 pb-3">Discount percent: <span th:text="${promoCode.discountPercent}"></span>%</h3>
+          <h3 class="pt-3 pb-3"><span th:text="#{discount_percent}">Discount percent</span>: <span th:text="${promoCode.discountPercent}"></span>%</h3>
         </div>
         <div class="col text-end">
           <div class="row">
             <div class="col">
               <form th:if="${promoCode.status == 'ACTIVE'}" class="pt-3 pb-3" th:action="@{/promo-codes/change-status/{id}(id=${promoCode.id})}" th:method="PATCH">
-                <button class="btn btn-warning">Deactivate</button>
+                <button class="btn btn-warning" th:text="#{deactivate}">Deactivate</button>
               </form>
               <form th:if="${promoCode.status == 'NOT_ACTIVE'}" class="pt-3 pb-3" th:action="@{/promo-codes/change-status/{id}(id=${promoCode.id})}" th:method="PATCH">
-                <button class="btn btn-success">Activate</button>
+                <button class="btn btn-success" th:text="#{activate}">Activate</button>
               </form>
             </div>
             <div class="col">
               <form class="pt-3 pb-3 pe-3" th:action="@{/promo-codes/{id}(id = ${promoCode.id})}" th:method="DELETE">
-                <button class="btn btn-danger rounded-5">Delete code</button>
+                <button class="btn btn-danger rounded-5" th:text="#{delete_code}">Delete code</button>
               </form>
             </div>
           </div>
@@ -43,7 +40,9 @@
     <div class="col-1"></div>
   </div>
   <div class="row text-center mt-5">
-    <form th:action="@{add-promo-code}" th:method="GET"><button type="submit" class="btn btn-dark rounded-5">Add promo code</button></form>
+    <form th:action="@{add-promo-code}" th:method="GET">
+      <button type="submit" class="btn btn-dark rounded-5" th:text="#{add_promo_code}">Add promo code</button>
+    </form>
   </div>
   <div class="row mt-5 mb-5"></div>
   <div class="row mt-5 mb-5"></div>

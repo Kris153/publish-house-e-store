@@ -9,26 +9,26 @@
     <div class="row mt-5">
         <div class="col-4"></div>
         <div class="col-4">
-            <h2 class="text-white mt-3 text-center">Add book</h2>
+            <h2 class="text-white mt-3 text-center" th:text="#{add_book}">Add book</h2>
             <form th:method="POST" th:action="@{/books/add-book}" th:object="${bookData}">
                 <div class="form-floating mt-3">
                     <input type="text" id="title" class="form-control"
                            placeholder="Place title  here"
                     th:field="*{title}" th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('title')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="title" class="form-label">Title</label>
+                    <label for="title" class="form-label" th:text="#{book_title}">Title</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="image_url" class="form-control"
                            placeholder="Place image url  here"
                            th:field="*{imageUrl}" th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('imageUrl')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="image_url" class="form-label">Image url</label>
+                    <label for="image_url" class="form-label" th:text="#{image_url}">Image url</label>
                 </div>
                 <div class="form-floating mt-3">
                     <select class="form-select" name="author_name" id="author_name"
                             th:field="*{authorName}" th:errorclass="'is-invalid alert-danger'">
-                        <option value="">Select author</option>
+                        <option value="" th:text="#{select_author}">Select author</option>
                         <option th:each="author: ${authors}" th:value="${author.name}" th:text="${author.name}">Author name</option>
                     </select>
                     <div th:each="error: ${#fields.errors('authorName')}" th:text="${error}" class="text-danger">Error messages</div>
@@ -36,7 +36,7 @@
                 <div class="form-floating mt-3">
                     <select class="form-select" name="category_name" id="category_name"
                             th:field="*{categoryName}" th:errorclass="'is-invalid alert-danger'">
-                        <option value="">Select category</option>
+                        <option value="" th:text="#{select_category}">Select category</option>
                         <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}">Category name</option>
                     </select>
                     <div th:each="error: ${#fields.errors('categoryName')}" th:text="${error}" class="text-danger">Error messages</div>
@@ -46,24 +46,24 @@
                            placeholder="Place short description  here"
                            th:field="*{shortDescription}" th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('shortDescription')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="short_description" class="form-label">Short description</label>
+                    <label for="short_description" class="form-label" th:text="#{short_description}">Short description</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="text" id="long_description" class="form-control"
                            placeholder="Place long description  here"
                            th:field="*{longDescription}" th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('longDescription')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="long_description" class="form-label">Long description</label>
+                    <label for="long_description" class="form-label" th:text="#{long_description}">Long description</label>
                 </div>
                 <div class="form-floating mt-3">
                     <input type="number" id="price" class="form-control"
                            placeholder="Place price  here"
                            th:field="*{price}" th:errorclass="'is-invalid alert-danger'">
                     <div th:each="error: ${#fields.errors('price')}" th:text="${error}" class="text-danger">Error messages</div>
-                    <label for="price" class="form-label">Price</label>
+                    <label for="price" class="form-label" th:text="#{price}">Price</label>
                 </div>
                 <div class="text-center">
-                    <button class="mt-3 btn btn-success mb-3 btn-center">Add book</button>
+                    <button class="mt-3 btn btn-success mb-3 btn-center" th:text="#{add_book}">Add book</button>
                 </div>
             </form>
         </div>

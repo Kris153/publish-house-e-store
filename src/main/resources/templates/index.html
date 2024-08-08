@@ -3,28 +3,52 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::header"></header>
-<div th:if="${isOrdered}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${isOrdered} and ${#locale.toString()} == 'en_US'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
     Thank you for shopping from us! Have a nice day!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
-<div th:if="${successfulAddAuthor}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${isOrdered} and ${#locale.toString()} == 'bg_BG'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Благодарим че пазарувахте от нас! Лек ден!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulAddAuthor} and ${#locale.toString()} == 'en_US'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
     Congratulations! You successfully added an author!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
-<div th:if="${successfulAddCategory}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${successfulAddAuthor} and ${#locale.toString()} == 'bg_BG'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Поздравления! Вие успешно добавихте автор!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulAddCategory} and ${#locale.toString()} == 'en_US'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
     Congratulations! You successfully added a category!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
-<div th:if="${successfulAddBook}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${successfulAddCategory} and ${#locale.toString()} == 'bg_BG'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Поздравления! Вие успешно добавихте  категория!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulAddBook} and ${#locale.toString()} == 'en_US'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
     Congratulations! You successfully added a book!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
-<div th:if="${successfulAddMessage}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${successfulAddBook} and ${#locale.toString()} == 'bg_BG'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Поздравления! Вие успешно добавихте книга!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulAddMessage} and ${#locale.toString()} == 'en_US'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
     Congratulations! You successfully send a message!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
-<div th:if="${successfulAddPromoCode}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${successfulAddMessage} and ${#locale.toString()} == 'bg_BG'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Поздравления! Вие успешно изпратихте съобщение!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulAddPromoCode} and ${#locale.toString()} == 'en_US'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
     Congratulations! You successfully added a promo code!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulAddPromoCode} and ${#locale.toString()} == 'bg_BG'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Поздравления! Вие успешно добавихте промо код!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
 <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5"
@@ -34,14 +58,15 @@
         <div class="row mt-5"></div>
         <div class="row mt-5">
             <div class="col-4"></div>
-            <div class="col-4"><h1 class="text-center text-white">Publish House</h1></div>
+            <div class="col-4"><h1 class="text-center text-white">Publishing House</h1></div>
             <div class="col-4"></div>
         </div>
         <div class="row mt-5"></div>
         <div class="row mt-5">
             <div class="col-4"></div>
             <div class="col-4 text-center">
-                <a th:href="@{/shop}" class="btn btn-lg-md btn-info text-white rounded-5">Go to the shop</a>
+                <a th:href="@{/shop}" class="btn btn-lg-md btn-info text-white rounded-5" th:if="${#locale.toString()} == 'en_US'">Go to the shop</a>
+                <a th:href="@{/shop}" class="btn btn-lg-md btn-info text-white rounded-5" th:if="${#locale.toString()} == 'bg_BG'">Към магазина</a>
             </div>
             <div class="col-4"></div>
         </div>
@@ -79,7 +104,8 @@
                     <div class="row mt-2 g-1">
                         <div class="col">
                             <form th:action="@{/books/{id}(id=${book.id})}" th:method="GET">
-                                <button type="submit" class="btn-success btn btn-sm rounded-5">Read more</button>
+                                <button type="submit" class="btn-success btn btn-sm rounded-5" th:if="${#locale.toString()} == 'en_US'">Read more</button>
+                                <button type="submit" class="btn-success btn btn-sm rounded-5" th:if="${#locale.toString()} == 'bg_BG'">Прочети повече</button>
                             </form>
                         </div>
                     </div>

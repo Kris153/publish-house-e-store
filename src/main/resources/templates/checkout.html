@@ -3,63 +3,75 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::header"></header>
-<div th:if="${!doesPromoCodeExists}" class="alert alert-danger alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${!doesPromoCodeExists} and ${#locale.toString()} == 'en_US'" class="alert alert-danger alert-dismissible text-center mb-0 rounded-0" role="alert">
     Sorry but this promo code does not exist!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
-<div th:if="${!isPromoCodeActive}" class="alert alert-danger alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${!doesPromoCodeExists} and ${#locale.toString()} == 'bg_BG'" class="alert alert-danger alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Съжаляваме, но този промо код не съществува!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${!isPromoCodeActive} and ${#locale.toString()} == 'en_US'" class="alert alert-danger alert-dismissible text-center mb-0 rounded-0" role="alert">
     Sorry but this promo code is not active!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
-<div th:if="${successfulUsePromoCode}" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+<div th:if="${!isPromoCodeActive} and ${#locale.toString()} == 'bg_BG'" class="alert alert-danger alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Съжаляваме, но този промо код не е активен!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulUsePromoCode} and ${#locale.toString()} == 'en_US'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
     You successfully used promo code <span th:text="${promoCodeName}"></span> for <span th:text="${discountPercent}"></span>% discount!
+    <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+</div>
+<div th:if="${successfulUsePromoCode} and ${#locale.toString()} == 'bg_BG'" class="alert alert-success alert-dismissible text-center mb-0 rounded-0" role="alert">
+    Вие успешно ползвахте промо код <span th:text="${promoCodeName}"></span> за <span th:text="${discountPercent}"></span>% намаление!
     <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 </div>
 <div class="container mt-5 mb-5">
     <div class="row text-center mb-5">
-        <h1>Checkout</h1>
+        <h1 th:text="#{go_to_the_checkout}">Checkout</h1>
     </div>
     <div class="row">
         <form class="" th:action="@{/checkout/finish-order}" th:method="POST" th:object="${orderData}">
             <div class="container">
                 <div class="row">
                     <div class="col me-3">
-                        <h3 class="">Shipping info</h3>
+                        <h3 class="" th:text="#{shipping_info}">Shipping info</h3>
                         <div class="form-floating mt-3">
                             <input type="text" id="shipping_name" class="form-control"
                                    placeholder="Place shipping name here"
                             th:field="*{shippingName}" th:errorclass="'is-invalid alert-danger'">
                             <div th:each="error: ${#fields.errors('shippingName')}" th:text="${error}" class="text-danger">Error messages</div>
-                            <label for="shipping_name" class="form-label">Name</label>
+                            <label for="shipping_name" class="form-label" th:text="#{name}">Name</label>
                         </div>
                         <div class="form-floating mt-3">
                             <input type="email" id="shipping_email" class="form-control"
                                    placeholder="Place shipping email here"
                                    th:field="*{shippingEmail}" th:errorclass="'is-invalid alert-danger'">
                             <div th:each="error: ${#fields.errors('shippingEmail')}" th:text="${error}" class="text-danger">Error messages</div>
-                            <label for="shipping_email" class="form-label">Email</label>
+                            <label for="shipping_email" class="form-label" th:text="#{email}">Email</label>
                         </div>
                         <div class="form-floating mt-3">
                             <input type="text" id="shipping_phone_number" class="form-control"
                                    placeholder="Place shipping phone number here"
                                    th:field="*{shippingPhoneNumber}" th:errorclass="'is-invalid alert-danger'">
                             <div th:each="error: ${#fields.errors('shippingPhoneNumber')}" th:text="${error}" class="text-danger">Error messages</div>
-                            <label for="shipping_phone_number" class="form-label">Phone number</label>
+                            <label for="shipping_phone_number" class="form-label" th:text="#{phone_number}">Phone number</label>
                         </div>
                         <div class="form-floating mt-3">
                             <input type="text" id="shipping_address" class="form-control"
                                    placeholder="Place phone shipping address here"
                                    th:field="*{shippingAddress}" th:errorclass="'is-invalid alert-danger'">
                             <div th:each="error: ${#fields.errors('shippingAddress')}" th:text="${error}" class="text-danger">Error messages</div>
-                            <label for="shipping_address" class="form-label">Shipping address</label>
+                            <label for="shipping_address" class="form-label" th:text="#{shipping_address}">Shipping address</label>
                         </div>
                     </div>
                     <div class="col ms-3 border border-3 p-3 border-dark rounded-5">
                         <h3>Your order</h3>
                         <table class="table table-striped">
                             <thead>
-                            <th>Book</th>
-                            <th>Subtotal</th>
+                            <th th:text="#{book}">Book</th>
+                            <th th:text="#{price}">Subtotal</th>
                             </thead>
                             <tbody>
                             <tr th:each="book:${cart.getBooksQuantitiesMap()}">
@@ -68,18 +80,18 @@
                             </tr>
                             </tbody>
                         </table>
-                        <h3>Total: <span th:text="${#numbers.formatDecimal(cart.totalPrice, 0, 2)}">180</span>лв.</h3>
+                        <h3> <span th:text="#{total}"> Total</span>: <span th:text="${#numbers.formatDecimal(cart.totalPrice, 0, 2)}">180</span>лв.</h3>
                         <div class="row mt-3">
                             <div class="col-2"></div>
                             <div class="col">
                                 <div class="row">
                                     <div class="col text-center">
                                         <a th:href="@{/cart}" class="btn mt-3 rounded-5"
-                                           style="background-color: #edbd39;">Back to the cart</a>
+                                           style="background-color: #edbd39;" th:text="#{back_to_the_cart}">Back to the cart</a>
                                     </div>
                                     <div class="col text-center">
                                         <button class="btn mt-3 rounded-5"
-                                                style="background-color: #edbd39;">Finish order</button>
+                                                style="background-color: #edbd39;" th:text="#{finish_order}">Finish order</button>
                                     </div>
                                 </div>
                             </div>
@@ -98,10 +110,10 @@
                             <input type="text" id="promo_code" class="form-control"
                                    placeholder="Place promo code here"
                                    th:field="*{name}">
-                            <label for="promo_code" class="form-label">Promo code</label>
+                            <label for="promo_code" class="form-label" th:text="#{promo_code}">Promo code</label>
                         </div>
                         <button class="btn btn-sm mt-2 mb-2 rounded-3"
-                                style="background-color: #5c9e8c; color: azure;"
+                                style="background-color: #5c9e8c; color: azure;" th:text="#{use_promo_code}"
                         >Use promo code</button>
                     </form>
                 </div>

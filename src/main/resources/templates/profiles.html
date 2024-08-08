@@ -5,7 +5,8 @@
 <header th:replace="fragments/commons::header"></header>
 <div class="container mt-5 mb-5">
     <div class="row text-center mb-5">
-        <h1>All profiles</h1>
+        <h1 th:if="${#locale.toString()} == 'en_US'">All profiles</h1>
+        <h1 th:if="${#locale.toString()} == 'bg_BG'">Всички профили</h1>
     </div>
     <div class="row text-center mb-3" th:each="user:${users}">
         <div class="col-2"></div>
@@ -15,10 +16,10 @@
                     <h3 class="pt-3 pb-3" th:text="${user.username}">Username</h3>
                 </div>
                 <div class="col">
-                    <h5 class="pt-4 pb-3">Role: <span th:text="${user.role}">User</span></h5>
+                    <h5 class="pt-4 pb-3"> <span th:text="#{role}">Role</span>: <span th:text="${user.role}">User</span></h5>
                 </div>
                 <div class="col text-end">
-                    <form class="pt-3 pb-3 pe-3" th:action="@{/profiles/{id}(id=${user.id})}" th:method="GET"><button class="btn btn-info rounded-5">See more</button></form>
+                    <form class="pt-3 pb-3 pe-3" th:action="@{/profiles/{id}(id=${user.id})}" th:method="GET"><button class="btn btn-info rounded-5" th:text="#{see_more}">See more</button></form>
                 </div>
             </div>
         </div>

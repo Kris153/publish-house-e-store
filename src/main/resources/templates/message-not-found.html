@@ -13,9 +13,14 @@
         <div class="row mt-5"></div>
         <div class="row mt-5">
             <div class="col-4"></div>
-            <div class="col-4 text-center">
+            <div class="col-4 text-center" th:if="${#locale.toString()} == 'en_US'">
                 <h1 class="text-center text-white">Sorry but this message does not exist! Please navigate to
                     <a class="text-info link-underline link-underline-opacity-0" th:href="@{/}">home page</a>
+                </h1>
+            </div>
+            <div class="col-4 text-center" th:if="${#locale.toString()} == 'bg_BG'">
+                <h1 class="text-center text-white">Съжаляваме, но това съобщение не съществува! Моля върнете се на
+                    <a class="text-info link-underline link-underline-opacity-0" th:href="@{/}">началната страница</a>
                 </h1>
             </div>
             <div class="col-4"></div>
