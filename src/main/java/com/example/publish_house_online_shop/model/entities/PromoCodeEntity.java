@@ -3,6 +3,8 @@ package com.example.publish_house_online_shop.model.entities;
 import com.example.publish_house_online_shop.model.enums.PromoCodeStatusEnum;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "promo_codes")
 public class PromoCodeEntity {
@@ -57,5 +59,18 @@ public class PromoCodeEntity {
 
     public void setStatus(PromoCodeStatusEnum status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PromoCodeEntity promoCode = (PromoCodeEntity) o;
+        return Objects.equals(id, promoCode.id) && Objects.equals(name, promoCode.name) && Objects.equals(discountPercent, promoCode.discountPercent) && status == promoCode.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, discountPercent, status);
     }
 }

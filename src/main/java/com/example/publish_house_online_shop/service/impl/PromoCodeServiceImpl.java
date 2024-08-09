@@ -3,8 +3,10 @@ package com.example.publish_house_online_shop.service.impl;
 import com.example.publish_house_online_shop.model.dtos.AddPromoCodeDTO;
 import com.example.publish_house_online_shop.model.dtos.PromoCodeDetailsDTO;
 import com.example.publish_house_online_shop.model.dtos.UsePromoCodeDTO;
+import com.example.publish_house_online_shop.model.entities.CartEntity;
 import com.example.publish_house_online_shop.model.entities.PromoCodeEntity;
 import com.example.publish_house_online_shop.model.enums.PromoCodeStatusEnum;
+import com.example.publish_house_online_shop.repository.CartRepository;
 import com.example.publish_house_online_shop.repository.PromoCodeRepository;
 import com.example.publish_house_online_shop.service.PromoCodeService;
 import com.example.publish_house_online_shop.service.exception.BadRequestException;
@@ -18,10 +20,12 @@ import java.util.stream.Collectors;
 @Service
 public class PromoCodeServiceImpl implements PromoCodeService {
     private final PromoCodeRepository promoCodeRepository;
+    private final CartRepository cartRepository;
     private final ModelMapper modelMapper;
 
-    public PromoCodeServiceImpl(PromoCodeRepository promoCodeRepository, ModelMapper modelMapper) {
+    public PromoCodeServiceImpl(PromoCodeRepository promoCodeRepository, CartRepository cartRepository, ModelMapper modelMapper) {
         this.promoCodeRepository = promoCodeRepository;
+        this.cartRepository = cartRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -59,6 +63,17 @@ public class PromoCodeServiceImpl implements PromoCodeService {
 
     @Override
     public void deleteById(Integer promoCodeId) {
+        Optional<PromoCodeEntity> promoCodeOpt = this.promoCodeRepository.findById(promoCodeId);
+        if(promoCodeOpt.isEmpty()){
+            throw new BadRequestException();
+        }
+        PromoCodeEntity promoCode = promoCodeOpt.get();
+        for (CartEntity cart : this.cartRepository.findAll()) {
+            if(cart.getPromoCode().equals(promoCode)){
+                cart.setPromoCode(null);
+                this.cartRepository.saveAndFlush(cart);
+            }
+        }
         this.promoCodeRepository.deleteById(promoCodeId);
     }
 
